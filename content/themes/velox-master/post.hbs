@@ -1,0 +1,44 @@
+{{!< default}}
+
+{{> "header"}}
+
+<main class="site_width padding" role="main">
+  <article class="{{post_class}}">
+
+    {{#post}}
+
+    <header class="post-header">
+      <h1>{{{title}}}</h1>
+      <time datetime="{{date format='YYYY-MM-DD'}}">{{date format="dddd, MMMM DD, YYYY"}}</time>
+    </header>
+
+    <div class="margin_bottom">
+      {{content}}
+    </div>
+
+    <footer class="author-post relative">
+      {{#if author}}
+
+      {{#if author.image}}
+      <div class="author-thumb inline middle">
+        <img src="{{author.image}}" alt="Author image" class="border circle" />
+      </div>
+      {{/if}}
+
+      <div class="inline middle align vertical">
+        <div>{{author}}</div>
+        <div>{{author.bio}}</div>
+      </div>
+
+      {{/if}}
+    </footer>
+
+    {{/post}}
+
+    {{!
+      Here, you can add disqus comment.
+      Also go to partials/disqus-comment to set your SHORTNAME.
+    }}
+    {{!> disqus-comment}}
+  </article>
+</main>

@@ -1,0 +1,24 @@
+{{!< default}}
+
+{{! This is a page template. A page outputs content just like any other post, and has all the same
+    attributes by default, but you can also customise it to behave differently if you prefer. }}
+
+<main class="content" role="main">
+<div class="container">
+	<div id="primary">
+		<div id="content" role="main">
+        {{! Everything inside the #post tags pulls data from the post }}
+        {{#post}}
+            <article class="post">
+                <h1 class="title">
+				    {{{title}}}
+                </h1>
+				<div class="the-content">
+                    {{content}}
+                </div>                
+            </article>
+        {{/post}}
+        </div>
+ 	</div>
+</div>
+</main>

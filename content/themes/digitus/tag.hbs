@@ -1,0 +1,40 @@
+{{!< default}}
+<header role='banner' class="site-head_digitus wrapper_digitus">
+    {{#if @blog.logo}}
+        <a class="logo_digitus" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="{{@blog.title}}" /></a>
+    {{/if}}
+    <h1 class="blogtitle_digitus">
+        <span itemprop="author">{{tag.name}}</span>
+    </h1>
+</header>
+
+<main class="wrapper_digitus" role="main">
+    
+    <h3 class="number-posts_purus">Number of posts&#58;<span>{{pagination.total}}</span></h3>
+    
+	{{#foreach posts}}
+    
+		<article class="article_digitus" role="article" itemscope itemtype="http://schema.org/Article">
+            
+            <span class="posttitle_digitus">
+                <h2 itemprop="headline"><a href="{{{url}}}" rel="bookmark">
+				    {{title}}
+                    </a>
+                </h2>
+                <span class="tooltip_digitus">
+                    <p><i class="fa fa-calendar"></i>
+                    <time datetime="{{date published_at format="YYYY-MM-DD"}}" itemprop="datePublished">
+                        {{date published_at timeago="true"}}
+                    </time></p>
+                </span>
+           </span> 	
+		</article>
+	
+	{{/foreach}}
+
+	{{#if pagination}}
+        {{{pagination}}}
+	{{/if}}
+
+</main>
+{{> footer}}
