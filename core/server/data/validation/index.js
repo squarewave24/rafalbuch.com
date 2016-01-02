@@ -1,77 +1,132 @@
 var schema    = require('../schema').tables,
     _         = require('lodash'),
     validator = require('validator'),
+    Promise   = require('bluebird'),
+    errors    = require('../../errors'),
+    config    = require('../../config'),
+    readThemes = require('../../utils/read-themes'),
 
     validateSchema,
     validateSettings,
-    validate;
+    validateActiveTheme,
+    validate,
+
+    availableThemes;
 
 // Provide a few custom validators
 //
-validator.extend('empty', function (str) {
+validator.extend('empty', function empty(str) {
     return _.isEmpty(str);
 });
 
-validator.extend('notContains', function (str, badString) {
+validator.extend('notContains', function notContains(str, badString) {
     return !_.contains(str, badString);
 });
 
-// Validation validation against schema attributes
-// values are checked against the validation objects
-// form schema.js
-validateSchema = function (tableName, model) {
-    var columns = _.keys(schema[tableName]);
+validator.extend('isEmptyOrURL', function isEmptyOrURL(str) {
+    return (_.isEmpty(str) || validator.isURL(str, {require_protocol: false}));
+});
 
-    _.each(columns, function (columnKey) {
+validator.extend('isSlug', function isSlug(str) {
+    return validator.matches(str, /^[a-z0-9\-_]+$/);
+});
+
+// Validation against schema attributes
+// values are checked against the validation objects from schema.js
+validateSchema = function validateSchema(tableName, model) {
+    var columns = _.keys(schema[tableName]),
+        validationErrors = [];
+
+    _.each(columns, function each(columnKey) {
+        var message = '';
+
         // check nullable
         if (model.hasOwnProperty(columnKey) && schema[tableName][columnKey].hasOwnProperty('nullable')
                 && schema[tableName][columnKey].nullable !== true) {
             if (validator.isNull(model[columnKey]) || validator.empty(model[columnKey])) {
-                throw new Error('Value in [' + tableName + '.' + columnKey + '] cannot be blank.');
+                message = 'Value in [' + tableName + '.' + columnKey + '] cannot be blank.';
+                validationErrors.push(new errors.ValidationError(message, tableName + '.' + columnKey));
             }
         }
+
         // TODO: check if mandatory values should be enforced
-        if (model[columnKey]) {
+        if (model[columnKey] !== null && model[columnKey] !== undefined) {
             // check length
-            if (schema[tableName][columnKey].hasOwnProperty('maxlength')) {
+            if (schema[tableName][columnKey].hasOwnProperty('maxlength')) {
                 if (!validator.isLength(model[columnKey], 0, schema[tableName][columnKey].maxlength)) {
-                    throw new Error('Value in [' + tableName + '.' + columnKey +
-                        '] exceeds maximum length of ' + schema[tableName][columnKey].maxlength + ' characters.');
+                    message = 'Value in [' + tableName + '.' + columnKey + '] exceeds maximum length of '
+                        + schema[tableName][columnKey].maxlength + ' characters.';
+                    validationErrors.push(new errors.ValidationError(message, tableName + '.' + columnKey));
                 }
             }
 
-            //check validations objects
+            // check validations objects
             if (schema[tableName][columnKey].hasOwnProperty('validations')) {
-                validate(model[columnKey], columnKey, schema[tableName][columnKey].validations);
+                validationErrors = validationErrors.concat(validate(model[columnKey], columnKey, schema[tableName][columnKey].validations));
             }
 
-            //check type
+            // check type
             if (schema[tableName][columnKey].hasOwnProperty('type')) {
                 if (schema[tableName][columnKey].type === 'integer' && !validator.isInt(model[columnKey])) {
-                    throw new Error('Value in [' + tableName + '.' + columnKey + '] is no valid integer.');
+                    message = 'Value in [' + tableName + '.' + columnKey + '] is not an integer.';
+                    validationErrors.push(new errors.ValidationError(message, tableName + '.' + columnKey));
                 }
             }
         }
     });
+
+    if (validationErrors.length !== 0) {
+        return Promise.reject(validationErrors);
+    }
+
+    return Promise.resolve();
 };
 
 // Validation for settings
 // settings are checked against the validation objects
 // form default-settings.json
-validateSettings = function (defaultSettings, model) {
+validateSettings = function validateSettings(defaultSettings, model) {
     var values = model.toJSON(),
+        validationErrors = [],
         matchingDefault = defaultSettings[values.key];
 
     if (matchingDefault && matchingDefault.validations) {
-        validate(values.value, values.key, matchingDefault.validations);
+        validationErrors = validationErrors.concat(validate(values.value, values.key, matchingDefault.validations));
     }
+
+    if (validationErrors.length !== 0) {
+        return Promise.reject(validationErrors);
+    }
+
+    return Promise.resolve();
+};
+
+validateActiveTheme = function validateActiveTheme(themeName) {
+    // If Ghost is running and its availableThemes collection exists
+    // give it priority.
+    if (config.paths.availableThemes && Object.keys(config.paths.availableThemes).length > 0) {
+        availableThemes = Promise.resolve(config.paths.availableThemes);
+    }
+
+    if (!availableThemes) {
+        // A Promise that will resolve to an object with a property for each installed theme.
+        // This is necessary because certain configuration data is only available while Ghost
+        // is running and at times the validations are used when it's not (e.g. tests)
+        availableThemes = readThemes(config.paths.themePath);
+    }
+
+    return availableThemes.then(function then(themes) {
+        if (!themes.hasOwnProperty(themeName)) {
+            return Promise.reject(new errors.ValidationError(themeName + ' cannot be activated because it is not currently installed.', 'activeTheme'));
+        }
+    });
 };
 
 // Validate default settings using the validator module.
 // Each validation's key is a method name and its value is an array of options
 //
 // eg:
-//      validations: { isUrl: true, isLength: [20, 40] }
+//      validations: { isURL: true, isLength: [20, 40] }
 //
 // will validate that a setting's length is a URL between 20 and 40 chars.
 //
@@ -84,8 +139,10 @@ validateSettings = function (defaultSettings, model) {
 //                                      // not null.
 //
 // available validators: https://github.com/chriso/validator.js#validators
-validate = function (value, key, validations) {
-    _.each(validations, function (validationOptions, validationName) {
+validate = function validate(value, key, validations) {
+    var validationErrors = [];
+
+    _.each(validations, function each(validationOptions, validationName) {
         var goodResult = true;
 
         if (_.isBoolean(validationOptions)) {
@@ -99,14 +156,19 @@ validate = function (value, key, validations) {
 
         // equivalent of validator.isSomething(option1, option2)
         if (validator[validationName].apply(validator, validationOptions) !== goodResult) {
-            throw new Error('Settings validation (' + validationName + ') failed for ' + key);
+            validationErrors.push(new errors.ValidationError('Validation (' + validationName + ') failed for ' + key, key));
         }
 
         validationOptions.shift();
     }, this);
+
+    return validationErrors;
 };
 
 module.exports = {
+    validate: validate,
+    validator: validator,
     validateSchema: validateSchema,
-    validateSettings: validateSettings
+    validateSettings: validateSettings,
+    validateActiveTheme: validateActiveTheme
 };

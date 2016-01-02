@@ -9,32 +9,27 @@ var BusBoy  = require('busboy'),
 function ghostBusBoy(req, res, next) {
     var busboy,
         stream,
-        tmpDir,
-        hasError = false;
+        tmpDir;
 
     // busboy is only used for POST requests
-    if (req.method && !req.method.match(/post/i)) {
+    if (req.method && !/post/i.test(req.method)) {
         return next();
     }
 
-    busboy = new BusBoy({ headers: req.headers });
+    busboy = new BusBoy({headers: req.headers});
     tmpDir = os.tmpdir();
 
     req.files = req.files || {};
     req.body = req.body || {};
 
-    busboy.on('file', function (fieldname, file, filename, encoding, mimetype) {
+    busboy.on('file', function onFile(fieldname, file, filename, encoding, mimetype) {
         var filePath,
             tmpFileName,
             md5 = crypto.createHash('md5');
 
-        // If the filename is invalid, mark an error
+        // If the filename is invalid, skip the stream
         if (!filename) {
-            hasError = true;
-        }
-        // If we've flagged any errors, do not process any streams
-        if (hasError) {
-            return file.emit('end');
+            return file.resume();
         }
 
         // Create an MD5 hash of original filename
@@ -44,7 +39,7 @@ function ghostBusBoy(req, res, next) {
 
         filePath = path.join(tmpDir, tmpFileName || 'temp.tmp');
 
-        file.on('end', function () {
+        file.on('end', function end() {
             req.files[fieldname] = {
                 type: mimetype,
                 encoding: encoding,
@@ -53,30 +48,29 @@ function ghostBusBoy(req, res, next) {
             };
         });
 
-        busboy.on('limit', function () {
-            hasError = true;
-            res.send(413, {code: 413, message: 'File size limit breached.'});
-        });
-
-        busboy.on('error', function (error) {
+        file.on('error', function onError(error) {
             console.log('Error', 'Something went wrong uploading the file', error);
         });
 
         stream = fs.createWriteStream(filePath);
 
-        stream.on('error', function (error) {
+        stream.on('error', function onError(error) {
             console.log('Error', 'Something went wrong uploading the file', error);
         });
 
         file.pipe(stream);
-
     });
 
-    busboy.on('field', function (fieldname, val) {
+    busboy.on('error', function onError(error) {
+        console.log('Error', 'Something went wrong parsing the form', error);
+        res.status(500).send({code: 500, message: 'Could not parse upload completely.'});
+    });
+
+    busboy.on('field', function onField(fieldname, val) {
         req.body[fieldname] = val;
     });
 
-    busboy.on('end', function () {
+    busboy.on('finish', function onFinish() {
         next();
     });
 
