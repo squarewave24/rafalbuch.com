@@ -1216,11 +1216,11 @@ hr {
 
 /*collapsed values */
 .panel-cover--collapsed {
-  width: 20%;
+  width: 22%;
   max-width: 530px; }
 
 .panel-cover--collapsed h1.panel-cover__title {
-    font-size: 1.8em;} 
+    font-size: 1.5em;} 
 
 .panel-cover--collapsed span.panel-subtitle { 
     font-size: 1em;}
@@ -1276,7 +1276,7 @@ hr {
   vertical-align: middle;
   position: relative;
   z-index: 800;
-  padding: 0 60px; }
+  padding: 0 40px; }
 
 .panel-main__content {
   max-width: 620px;
