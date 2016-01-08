@@ -926,7 +926,7 @@ html {
 
 body {
   font-family: "Raleway", sans-serif;
-  font-size: 1em;
+  font-size: .8em;
   color: #666666; }
 
 ::selection {
@@ -979,9 +979,11 @@ h4 {
 h5 {
   font-size: 1em; }
 
+
 p {
   margin-bottom: 1.3em;
   line-height: 1.7em; 
+  
   clear:both;
   }
 
@@ -993,16 +995,18 @@ em {
 
 blockquote {
   margin: 2em 0;
-  padding: 1em 0;
-  padding-left: 1.1em;
-  /*background: #fcfcfc;*/
-  border-left: 15px solid #eeeeee;
+  padding: 1.5em 0;
+  padding-left: 1em;
+  padding-right: 1em;
+  /*background: #f5f5f5;*/
+  /*border-left: 15px solid #eeeeee;*/
+  /*border-right: 15px solid #eeeeee;*/
   border-radius: 3px;
   font-family: "Roboto Slab", serif;
   font-weight: lighter;
   font-style: italic;
   font-size: 1.1em;
-  text-align: left;
+  text-align: center;
   clear:both;
    }
   blockquote p:last-child {
@@ -1216,11 +1220,11 @@ hr {
 
 /*collapsed values */
 .panel-cover--collapsed {
-  width: 22%;
+  width: 25%;
   max-width: 530px; }
 
 .panel-cover--collapsed h1.panel-cover__title {
-    font-size: 1.5em;} 
+    font-size: 2em;} 
 
 .panel-cover--collapsed span.panel-subtitle { 
     font-size: 1em;}
@@ -1228,8 +1232,8 @@ hr {
 .content-wrapper {
   z-index: 800;
   /*width: 60%;*/
-  /*max-width: 800px;*/
-  margin-left: 18%; }
+  max-width: 800px;
+  margin-left: 25%; }
 
 .content-wrapper__inner {
   margin: 0 10%;

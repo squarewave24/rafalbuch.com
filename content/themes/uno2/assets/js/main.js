@@ -57,7 +57,7 @@ function showPhotos() {
     $('#photos').show();
   }
   function showBlog() {
-    slideDetailPanel();
+    setTimeout(slideDetailPanel, 50);
     $('#body').show();
     $('#photos').hide();
   }
