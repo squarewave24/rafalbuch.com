@@ -3,47 +3,47 @@
   #tableDiv table { border-spacing: 0; border-collapse: collapse;}
   #tableDiv td { border: 1px solid #dfdfdf; padding: 10px;}
   .alt { background-color: #EBFFF6;}
-  /*#tableDiv table tr:nth-child(1) {
-    background-color: #ccf;
-  }
-  #outputTextDiv { font-size: .8em; color: #666666;}*/
+  /*#tableDiv table tr:nth-child(1n) {
+    background-color: #EBFFF6;
+  }*/
+  #outputTextDiv { font-size: .8em; color: #666666;}
 </style>
 
 <script>
 	var _numbers = [
-			// [6,3,2,4,6,2,5],
-			// [3,5,2,4,4,4,1],
-			// [3,3,2,3,3,4,2],
-			// [3,4,1,2,2,5,3],
-			// [4,4,4,2,3,2,4],
-			// [2,5,4,2,3,2,5],
-			// [3,5,2,1,4,4,9]
-			[2,2,1],
-			[1,2,2],
-			[2,2,0]
-		];
+ [6,3,2,4,6,2,5],
+ [3,5,2,4,4,4,1],
+ [3,3,2,3,3,4,2],
+ [3,4,1,2,2,5,3],
+ [4,4,4,2,3,2,4],
+ [2,5,4,2,3,2,5],
+ [3,5,2,1,4,4,0]
+			// [2,2,1],
+			// [1,2,2],
+			// [2,2,0]
+      ];
 
 	for (var i=0; i<_numbers.length; i++) {// rows
 		for (var j=0; j<_numbers[i].length; j++) {// cols
 
 			// document.write(_numbers[i][j], '&nbsp;');
 			
-			_numbers[i][j] = { x: j, y: i, v: _numbers[i][j], toString: function(){return this.x + ':' + this.y;}};
+			_numbers[i][j] = { x: j, y: i, v: _numbers[i][j], toString: function(){return '[' + this.x + ':' + this.y + '(' + this.v + ')]';}};
 		}
 			// document.write('<br />');
 
-	}
+   }
 
 
-  function createMazeHtml(){
+   function createMazeHtml(){
     var html = '<table>'
     for (var i=0; i<_numbers.length; i++) { // rows
       html += '<tr>'
       for (var j=0; j<_numbers[i].length; j++) { // cols
         
-        var cellStyle = ((i+j) % 2) == 0 ? '' : ' class="alt" ';
-        console.log(i, j, i+j, i+j %2);
-        
+        var cellStyle = ((i+j) % 2) == 0 
+          ? '' 
+          : ' class="alt" ';
         html += '<td ' +  cellStyle + '>' + _numbers[i][j].v + '</td>'
       }
       html += '</tr>'
@@ -62,91 +62,114 @@
   }
   
   
-	
+  
 
-	function move(node, direction, history) {
+  function move(node, direction, history) {
+    history.push(node);
 
-		var nextNode = getNextNode(node, direction);
-		if (!nextNode) 
-			return; // no node exists at that address
+    var nextNode = getNextNode(node, direction);
+    if (!nextNode) 
+      return; // no node exists at that address
 
-		if (history.some(function(o){
-			return o === nextNode;
-		})){
-			console.log('terminating', node.toString(), direction, nextNode.toString(), JSON.stringify(history));
-			return; // infinite loop detected, terminate!
-		}
-	
-	    history.push(node);
+    if (history.some(function(o){
+      return o === nextNode;
+    })){
+      history.push(nextNode); // for clarity in history show the loop node
+      printTerminating(history); // DEBUG terminates
+      console.log('terminating', node.toString(), direction, nextNode.toString(), JSON.stringify(history));
+      return; // infinite loop detected, terminate!
+    }
+    
 
-		if (nextNode.v == 0){
+    if (nextNode.v == 0){
       history.push(nextNode);
-			printWinner(history);
-			
-		}
+      printWinner(history);
+      
+    }
 
-		move(nextNode, 'up', history);
-		move(nextNode, 'down', history);
-		move(nextNode, 'right', history);
-		move(nextNode, 'left', history);
+    move(nextNode, 'up', history);
+    move(nextNode, 'down', history);
+    move(nextNode, 'right', history);
+    move(nextNode, 'left', history);
 
-		
-	}
+    
+  }
 
-	function getNextNode(node, direction){
-		var nextNode = null;
-		if (node.v < 1) return nextNode;
-		switch(direction){
-			case 'up':
-		      if (node.y - node.v > -1)
-		      		nextNode = _numbers[node.y - node.v][node.x];
-		      break;
-		    case 'down':
-		      if (node.y + node.v < _numbers.length)
-		      		nextNode = _numbers[node.y + node.v][node.x];
-		      break;
-		    case 'left':
-		      if (node.x - node.v > -1)
-		      		nextNode = _numbers[node.y][node.x - node.v];
-		      break;
-		    case 'right':
-		      if (node.x + node.v < _numbers.length)
-		       		nextNode = _numbers[node.y][node.x + node.v];
-		      break;
-		    default:
-		      console.error('bad direction supplied: ', direction);
-		}
+  function getNextNode(node, direction){
+    var nextNode = null;
+    if (node.v < 1) return nextNode;
+    switch(direction){
+     case 'up':
+     if (node.y - node.v > -1)
+      nextNode = _numbers[node.y - node.v][node.x];
+    break;
+    case 'down':
+    if (node.y + node.v < _numbers.length)
+      nextNode = _numbers[node.y + node.v][node.x];
+    break;
+    case 'left':
+    if (node.x - node.v > -1)
+      nextNode = _numbers[node.y][node.x - node.v];
+    break;
+    case 'right':
+    if (node.x + node.v < _numbers.length)
+     nextNode = _numbers[node.y][node.x + node.v];
+   break;
+   default:
+   console.error('bad direction supplied: ', direction);
+ }
+   // debug 
+   
+    // var dbg = '...................' + 
+    //   node.x + ':' + node.y + ' ' + 
+    //   direction + '  ';
+    //   if (nextNode)
+    //     dbg += nextNode.x + ':' + nextNode.y;
+      
+    //   writeOutput(dbg);
+ 
+ return nextNode;
+}
 
-		return nextNode;
-	}
+function printWinner(history){
+  writeOutput('solved in ' + history.length + ' moves: ' + 
+    history.map(
+      function(el) { return el.toString(); }
+      )
+    );
 
-	function printWinner(history){
-		writeOutput('solved in ' + history.length + ' moves: ' + 
-      history.map(
-        function(el) { return '[' + el.x + ':' + el.y + ']'; }
-        )
-      );
- 		
+}
 
-	}
+function printTerminating(history){
+  writeOutput('terminating: ' + history.length + ' moves: ' + 
+    history.map(
+      function(el) { return el.toString(); }
+      )
+    );
 
-	
+}
+
+
+// tests 
+
+
+
 
 
 </script>
 
 <body>
-<div id="tableDiv">
-</div>
-<div id="outputTextDiv"></div>
+  <div id="tableDiv">
+  </div>
+  <div id="outputTextDiv"></div>
 
-<script>
-  document.getElementById('tableDiv').appendChild(createMazeHtml());
-  var first = _numbers[0][0];
-  
-  move(first, 'down', []);
-  move(first, 'right', []);
-</script>
+  <script>
+    document.getElementById('tableDiv').appendChild(createMazeHtml());
+    var first = _numbers[0][0];
+    
+    move(first, 'down', []);
+    move(first, 'right', []);
+  </script>
 
 
 </body>
