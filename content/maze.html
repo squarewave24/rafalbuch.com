@@ -6,7 +6,7 @@
   /*#tableDiv table tr:nth-child(1n) {
     background-color: #EBFFF6;
   }*/
-  #outputTextDiv { font-size: .8em; color: #666666;}
+  #outputTextDiv { font-size: .6em; color: #666666; font-family: arial;}
 </style>
 
 <script>
@@ -30,9 +30,7 @@
 			
 			_numbers[i][j] = { x: j, y: i, v: _numbers[i][j], toString: function(){return '[' + this.x + ':' + this.y + '(' + this.v + ')]';}};
 		}
-			// document.write('<br />');
-
-   }
+    }
 
 
    function createMazeHtml(){
@@ -65,6 +63,7 @@
   
 
   function move(node, direction, history) {
+    history = history.slice(0);
     history.push(node);
 
     var nextNode = getNextNode(node, direction);
@@ -72,13 +71,15 @@
       return; // no node exists at that address
 
     if (history.some(function(o){
-      return o === nextNode;
+      return o == nextNode;
     })){
-      history.push(nextNode); // for clarity in history show the loop node
-      printTerminating(history); // DEBUG terminates
+    //   printTerminating(history); // DEBUG 
       console.log('terminating', node.toString(), direction, nextNode.toString(), JSON.stringify(history));
       return; // infinite loop detected, terminate!
     }
+    
+    // DEBUG
+    // writeOutput(history.map(function(el) { return el.toString(); }) + ' ' + direction + ' ' + nextNode.toString());
     
 
     if (nextNode.v == 0){
