@@ -11,17 +11,21 @@
 
 <script>
 	var _numbers = [
- [6,3,2,4,6,2,5],
- [3,5,2,4,4,4,1],
- [3,3,2,3,3,4,2],
- [3,4,1,2,2,5,3],
- [4,4,4,2,3,2,4],
- [2,5,4,2,3,2,5],
- [3,5,2,1,4,4,0]
+        
+        [6,3,2,4,6,2,5],
+        [3,5,2,4,4,4,1],
+        [3,3,2,3,3,4,2],
+        [3,4,1,2,2,5,3],
+        [4,4,4,2,3,2,4],
+        [2,5,4,2,3,2,5],
+        [3,5,2,1,4,4,0]
+        
 			// [2,2,1],
 			// [1,2,2],
 			// [2,2,0]
       ];
+    
+    var _solutions = [];
 
 	for (var i=0; i<_numbers.length; i++) {// rows
 		for (var j=0; j<_numbers[i].length; j++) {// cols
@@ -82,10 +86,9 @@
     // writeOutput(history.map(function(el) { return el.toString(); }) + ' ' + direction + ' ' + nextNode.toString());
     
 
-    if (nextNode.v == 0){
+    if (nextNode.v == 0){ // found solution
       history.push(nextNode);
-      printWinner(history);
-      
+      _solutions.push(history);
     }
 
     move(nextNode, 'up', history);
@@ -133,7 +136,7 @@
 }
 
 function printWinner(history){
-  writeOutput('solved in ' + history.length + ' moves: ' + 
+  writeOutput('solved in ' + (history.length - 1) + ' moves: ' + 
     history.map(
       function(el) { return el.toString(); }
       )
@@ -170,6 +173,16 @@ function printTerminating(history){
     
     move(first, 'down', []);
     move(first, 'right', []);
+    
+    writeOutput('solutions found: ' +  _solutions.length);
+    _solutions.sort(function(a,b) {return a.length > b.length ? 1 : -1;});
+    _solutions.forEach(function(s){
+        
+       writeOutput(
+           s.length + ' moves: ' +
+           s.map(function(el){ return ' ' + el.toString();})) 
+    });  
+    
   </script>
 
 
