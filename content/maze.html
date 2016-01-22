@@ -1,12 +1,31 @@
 <html>
 <style>
   #tableDiv table { border-spacing: 0; border-collapse: collapse;}
-  #tableDiv td { border: 1px solid #dfdfdf; padding: 10px;}
+  #tableDiv td { border: 1px solid #dfdfdf; padding: 19px;}
   .alt { background-color: #EBFFF6;}
   /*#tableDiv table tr:nth-child(1n) {
     background-color: #EBFFF6;
   }*/
   #outputTextDiv { font-size: .6em; color: #666666; font-family: arial;}
+  .selected { 
+      
+      background-color: #336666;
+      color: #fff;
+        /* IE 8 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+
+        /* IE 5-7 */
+        filter: alpha(opacity=40);
+
+        /* Netscape */
+        -moz-opacity: 0.4;
+
+        /* Safari 1.x */
+        -khtml-opacity: 0.4;
+
+        /* Good browsers */
+        opacity: 0.4;
+      }
 </style>
 
 <script>
@@ -68,6 +87,7 @@
 
   function move(node, direction, history) {
     history = history.slice(0);
+    history.push(getArrow(direction));
     history.push(node);
 
     var nextNode = getNextNode(node, direction);
@@ -122,6 +142,8 @@
    default:
    console.error('bad direction supplied: ', direction);
  }
+ 
+
    // debug 
    
     // var dbg = '...................' + 
@@ -134,6 +156,16 @@
  
  return nextNode;
 }
+
+ function getCell(matrixObj){
+     return document.getElementById('tableDiv').children[0].children[0].rows[matrixObj.x].cells[matrixObj.y];
+ }
+
+
+ 
+ function getArrow(direction) {
+     return '&' + direction.substring(0,1) + 'arr;';
+ }
 
 function printWinner(history){
   writeOutput('solved in ' + (history.length - 1) + ' moves: ' + 
@@ -151,6 +183,11 @@ function printTerminating(history){
       )
     );
 
+}
+
+function replay(history, i){
+    getCell(getMoves(history)[i]).className = 'selected';
+    replay(history, i++);
 }
 
 
@@ -179,9 +216,13 @@ function printTerminating(history){
     _solutions.forEach(function(s){
         
        writeOutput(
-           s.length + ' moves: ' +
+           getMoves(s).length + ' moves: ' +
            s.map(function(el){ return ' ' + el.toString();})) 
-    });  
+    }); 
+    
+    function getMoves(history){
+        return history.filter(function(el){return typeof el.x != 'undefined';})
+    } 
     
   </script>
 
