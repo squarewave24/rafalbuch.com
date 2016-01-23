@@ -168,6 +168,8 @@
  return nextNode;
 }
 
+// replay functions *****
+
  // get html cell based on matrix object coordinates
  function getCell(matrixObj){
      return document.getElementById('tableDiv')
@@ -190,14 +192,14 @@
 
  }
 
-function printTerminating(history){
-  writeOutput('terminating: ' + history.length + ' moves: ' + 
-    history.map(
-      function(el) { return el.toString(); }
-      )
-    );
+// function printTerminating(history){
+//   writeOutput('terminating: ' + history.length + ' moves: ' + 
+//     history.map(
+//       function(el) { return el.toString(); }
+//       )
+//     );
 
-}
+// }
 
 function replay(history, i, lastCell){
     if (!history) return;
@@ -207,8 +209,9 @@ function replay(history, i, lastCell){
     if (!matrixObject) return;
     var c = getCell(matrixObject);
     console.log('replay: ', matrixObject.toString());
-    if (lastCell) lastCell.className = '';
-    c.className = 'selected';
+    if (lastCell) 
+        lastCell.className = lastCell.className.replace(/(?:^|\s)selected(?!\S)/,'');
+    c.className += ' selected';
     setTimeout(function() {replay(history, i+1, c);}, 300);
 }
 
