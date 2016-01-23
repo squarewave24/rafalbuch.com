@@ -1,35 +1,46 @@
 <html>
 <style>
-  #tableDiv table { border-spacing: 0; border-collapse: collapse;}
-  #tableDiv td { border: 1px solid #dfdfdf; padding: 19px;}
-  .alt { background-color: #EBFFF6;}
-  /*#tableDiv table tr:nth-child(1n) {
+    #tableDiv table {
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+    
+    #tableDiv td {
+        border: 1px solid #dfdfdf;
+        padding: 19px;
+    }
+    
+    .alt {
+        background-color: #EBFFF6;
+    }
+    /*#tableDiv table tr:nth-child(1n) {
     background-color: #EBFFF6;
   }*/
-  #outputTextDiv { font-size: .6em; color: #666666; font-family: arial;}
-  .selected { 
-      
-      background-color: #336666;
-      color: #fff;
+    
+    #outputTextDiv {
+        font-size: .6em;
+        color: #666666;
+        font-family: arial;
+    }
+    
+    .selected {
+        background-color: #336666;
+        color: #fff;
         /* IE 8 */
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-
         /* IE 5-7 */
         filter: alpha(opacity=40);
-
         /* Netscape */
         -moz-opacity: 0.4;
-
         /* Safari 1.x */
         -khtml-opacity: 0.4;
-
         /* Good browsers */
         opacity: 0.4;
-      }
+    }
 </style>
 
 <script>
-	var _numbers = [
+    var _numbers = [
         
         [6,3,2,4,6,2,5],
         [3,5,2,4,4,4,1],
@@ -98,7 +109,7 @@
       return o == nextNode;
     })){
     //   printTerminating(history); // DEBUG 
-      console.log('terminating', node.toString(), direction, nextNode.toString(), JSON.stringify(history));
+    //   console.log('terminating', node.toString(), direction, nextNode.toString(), JSON.stringify(history));
       return; // infinite loop detected, terminate!
     }
     
@@ -157,24 +168,27 @@
  return nextNode;
 }
 
+ // get html cell based on matrix object coordinates
  function getCell(matrixObj){
-     return document.getElementById('tableDiv').children[0].children[0].rows[matrixObj.x].cells[matrixObj.y];
+     return document.getElementById('tableDiv')
+        .children[0] // table div
+        .children[0] // table
+        .rows[ matrixObj.y] // row
+        .cells[matrixObj.x]; // return cell 
  }
 
-
- 
  function getArrow(direction) {
      return '&' + direction.substring(0,1) + 'arr;';
  }
 
-function printWinner(history){
-  writeOutput('solved in ' + (history.length - 1) + ' moves: ' + 
-    history.map(
-      function(el) { return el.toString(); }
-      )
-    );
+ function printWinner(history) {
+     writeOutput('solved in ' + (history.length - 1) + ' moves: ' +
+         history.map(
+             function (el) { return el.toString(); }
+             )
+         );
 
-}
+ }
 
 function printTerminating(history){
   writeOutput('terminating: ' + history.length + ' moves: ' + 
@@ -185,27 +199,31 @@ function printTerminating(history){
 
 }
 
-function replay(history, i){
-    getCell(getMoves(history)[i]).className = 'selected';
-    replay(history, i++);
+function replay(history, i, lastCell){
+    if (!history) return;
+    i = i || 0;
+    var moves = getMoves(history);
+    var matrixObject = moves[i];
+    if (!matrixObject) return;
+    var c = getCell(matrixObject);
+    console.log('replay: ', matrixObject.toString());
+    if (lastCell) lastCell.className = '';
+    c.className = 'selected';
+    setTimeout(function() {replay(history, i+1, c);}, 300);
 }
 
 
-// tests 
-
-
-
-
+// tests
 
 </script>
 
 <body>
-  <div id="tableDiv">
-  </div>
-  <div id="outputTextDiv"></div>
+    <div id="tableDiv">
+    </div>
+    <div id="outputTextDiv"></div>
 
-  <script>
-    document.getElementById('tableDiv').appendChild(createMazeHtml());
+    <script>
+        document.getElementById('tableDiv').appendChild(createMazeHtml());
     var first = _numbers[0][0];
     
     move(first, 'down', []);
@@ -222,14 +240,7 @@ function replay(history, i){
     
     function getMoves(history){
         return history.filter(function(el){return typeof el.x != 'undefined';})
-    } 
-    
-  </script>
-
-
-</body>
+    }
+    </script></body>
 
 </html>
-
-
-
