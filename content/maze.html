@@ -10,12 +10,7 @@
         padding: 19px;
     }
     
-    .alt {
-        background-color: #EBFFF6;
-    }
-    /*#tableDiv table tr:nth-child(1n) {
-    background-color: #EBFFF6;
-  }*/
+    .alt { background-color: #EBFFF6; }
     
     #outputTextDiv {
         font-size: .6em;
@@ -59,13 +54,9 @@
 
 	for (var i=0; i<_numbers.length; i++) {// rows
 		for (var j=0; j<_numbers[i].length; j++) {// cols
-
-			// document.write(_numbers[i][j], '&nbsp;');
-			
 			_numbers[i][j] = { x: j, y: i, v: _numbers[i][j], toString: function(){return '[' + this.x + ':' + this.y + '(' + this.v + ')]';}};
 		}
     }
-
 
    function createMazeHtml(){
     var html = '<table>'
@@ -93,9 +84,6 @@
     document.getElementById('outputTextDiv').appendChild(d);
   }
   
-  
-  
-
   function move(node, direction, history) {
     history = history.slice(0);
     history.push(getArrow(direction));
@@ -108,15 +96,9 @@
     if (history.some(function(o){
       return o == nextNode;
     })){
-    //   printTerminating(history); // DEBUG 
-    //   console.log('terminating', node.toString(), direction, nextNode.toString(), JSON.stringify(history));
-      return; // infinite loop detected, terminate!
+      return; // loop detected, terminate!
     }
-    
-    // DEBUG
-    // writeOutput(history.map(function(el) { return el.toString(); }) + ' ' + direction + ' ' + nextNode.toString());
-    
-
+  
     if (nextNode.v == 0){ // found solution
       history.push(nextNode);
       _solutions.push(history);
@@ -154,23 +136,11 @@
    console.error('bad direction supplied: ', direction);
  }
  
-
-   // debug 
-   
-    // var dbg = '...................' + 
-    //   node.x + ':' + node.y + ' ' + 
-    //   direction + '  ';
-    //   if (nextNode)
-    //     dbg += nextNode.x + ':' + nextNode.y;
-      
-    //   writeOutput(dbg);
- 
  return nextNode;
 }
 
-// replay functions *****
+// REPLAY functions ********************************************* //
 
- // get html cell based on matrix object coordinates
  function getCell(matrixObj){
      return document.getElementById('tableDiv')
         .children[0] // table div
@@ -182,24 +152,6 @@
  function getArrow(direction) {
      return '&' + direction.substring(0,1) + 'arr;';
  }
-
- function printWinner(history) {
-     writeOutput('solved in ' + (history.length - 1) + ' moves: ' +
-         history.map(
-             function (el) { return el.toString(); }
-             )
-         );
-
- }
-
-// function printTerminating(history){
-//   writeOutput('terminating: ' + history.length + ' moves: ' + 
-//     history.map(
-//       function(el) { return el.toString(); }
-//       )
-//     );
-
-// }
 
 function replay(history, i, lastCell){
     if (!history) return;
@@ -215,8 +167,6 @@ function replay(history, i, lastCell){
     setTimeout(function() {replay(history, i+1, c);}, 300);
 }
 
-
-// tests
 
 </script>
 
@@ -234,10 +184,11 @@ function replay(history, i, lastCell){
     
     writeOutput('solutions found: ' +  _solutions.length);
     _solutions.sort(function(a,b) {return a.length > b.length ? 1 : -1;});
-    _solutions.forEach(function(s){
+    _solutions.forEach(function(s, i){
         
-       writeOutput(
-           getMoves(s).length + ' moves: ' +
+       writeOutput('<a href="#" onclick=replay(_solutions['+ i +'])>' +
+           getMoves(s).length + 
+           ' moves: </a>' +
            s.map(function(el){ return ' ' + el.toString();})) 
     }); 
     
