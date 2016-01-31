@@ -1,16 +1,18 @@
 <html>
+    <head>
+        
 <style>
-    #tableDiv table {
+    table.maze-table {
         border-spacing: 0;
         border-collapse: collapse;
     }
     
-    #tableDiv td {
+    table.maze-table td {
         border: 1px solid #dfdfdf;
         padding: 19px;
     }
     
-    .alt { background-color: #EBFFF6; }
+    .maze-table .alt { background-color: #EBFFF6; }
     
     #outputTextDiv {
         font-size: .6em;
@@ -32,10 +34,15 @@
         /* Good browsers */
         opacity: 0.4;
     }
+    
 </style>
 
+
+
+
+</head>
 <script>
-    var _numbers = [
+    var _maze = [
         
         [6,3,2,4,6,2,5],
         [3,5,2,4,4,4,1],
@@ -45,29 +52,33 @@
         [2,5,4,2,3,2,5],
         [3,5,2,1,4,4,0]
         
-			// [2,2,1],
-			// [1,2,2],
-			// [2,2,0]
+        // [2,2,1],
+        // [1,2,2],
+        // [2,2,0]
       ];
     
     var _solutions = [];
 
-	for (var i=0; i<_numbers.length; i++) {// rows
-		for (var j=0; j<_numbers[i].length; j++) {// cols
-			_numbers[i][j] = { x: j, y: i, v: _numbers[i][j], toString: function(){return '[' + this.x + ':' + this.y + '(' + this.v + ')]';}};
+	for (var i=0; i<_maze.length; i++) {// rows
+		for (var j=0; j<_maze[i].length; j++) {// cols
+			_maze[i][j] = { x: j, 
+                            y: i, 
+                            v: _maze[i][j], 
+                            toString: function(){return '[' + this.x + ':' + this.y + '(' + this.v + ')]';}
+                           };
 		}
     }
 
    function createMazeHtml(){
-    var html = '<table>'
-    for (var i=0; i<_numbers.length; i++) { // rows
+    var html = '<table class=maze-table>'
+    for (var i=0; i<_maze.length; i++) { // rows
       html += '<tr>'
-      for (var j=0; j<_numbers[i].length; j++) { // cols
+      for (var j=0; j<_maze[i].length; j++) { // cols
         
         var cellStyle = ((i+j) % 2) == 0 
           ? '' 
           : ' class="alt" ';
-        html += '<td ' +  cellStyle + '>' + _numbers[i][j].v + '</td>'
+        html += '<td ' +  cellStyle + '>' + _maze[i][j].v + '</td>'
       }
       html += '</tr>'
     }
@@ -118,19 +129,19 @@
     switch(direction){
      case 'up':
      if (node.y - node.v > -1)
-      nextNode = _numbers[node.y - node.v][node.x];
+      nextNode = _maze[node.y - node.v][node.x];
     break;
     case 'down':
-    if (node.y + node.v < _numbers.length)
-      nextNode = _numbers[node.y + node.v][node.x];
+    if (node.y + node.v < _maze.length)
+      nextNode = _maze[node.y + node.v][node.x];
     break;
     case 'left':
     if (node.x - node.v > -1)
-      nextNode = _numbers[node.y][node.x - node.v];
+      nextNode = _maze[node.y][node.x - node.v];
     break;
     case 'right':
-    if (node.x + node.v < _numbers.length)
-     nextNode = _numbers[node.y][node.x + node.v];
+    if (node.x + node.v < _maze.length)
+     nextNode = _maze[node.y][node.x + node.v];
    break;
    default:
    console.error('bad direction supplied: ', direction);
@@ -177,7 +188,7 @@ function replay(history, i, lastCell){
 
     <script>
         document.getElementById('tableDiv').appendChild(createMazeHtml());
-    var first = _numbers[0][0];
+    var first = _maze[0][0];
     
     move(first, 'down', []);
     move(first, 'right', []);

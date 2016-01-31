@@ -3,7 +3,7 @@
 .panel-cover--overlay {
     background-color: rgba(54, 58, 66, 0.6);
   background-image: -webkit-linear-gradient(-410deg, rgba(54, 58, 66, 0.6) 20%, rgba(0, 0, 0, 0.9));
-  background-image: linear-gradient(140deg,rgba(54, 58, 66, 0.6) 20%, rgba(0, 0, 0, 0.9)); }
+  background-image: linear-gradient(140deg,rgba(54, 58, 66, 0.6) 20%, rgba(0, 0, 0, 0.9)); 
 
 }
 
@@ -12,3 +12,13 @@
     height: 100%;
     background: url(../images/coming-soon.jpg) top left no-repeatd;
 }
+
+img[alt=maze] {width: 300px;}
+img[alt=maze-graph], 
+img[alt=maze-graph-solution], 
+img[alt=maze-graph-loop]
+ {width: 150px;}
+ img[alt=maze-array-objects] { width: 200px; }
+
+/* prism ovrrides */
+pre[class*="language-"] {padding: 0 !important; border: none !important; border-radius: 0 !important;}
