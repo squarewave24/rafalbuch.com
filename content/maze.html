@@ -21,7 +21,7 @@
     }
     
     .selected {
-        background-color: #336666;
+        background-color: #336666 !important;
         color: #fff;
         /* IE 8 */
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
@@ -59,15 +59,14 @@
     
     var _solutions = [];
 
-	for (var i=0; i<_maze.length; i++) {// rows
-		for (var j=0; j<_maze[i].length; j++) {// cols
+	for (var i=0; i<_maze.length; i++) // rows
+		for (var j=0; j<_maze[i].length; j++) // cols
 			_maze[i][j] = { x: j, 
                             y: i, 
                             v: _maze[i][j], 
                             toString: function(){return '[' + this.x + ':' + this.y + '(' + this.v + ')]';}
                            };
-		}
-    }
+	
 
    function createMazeHtml(){
     var html = '<table class=maze-table>'
@@ -96,31 +95,32 @@
   }
   
   function move(node, direction, history) {
-    history = history.slice(0);
+    // 1. create a new copy history array since it gets passed by reference. 
+    history = history.slice(0); 
+    // 2. save current node into current thread history
     history.push(getArrow(direction));
     history.push(node);
-
+    // 3. get next node
     var nextNode = getNextNode(node, direction);
     if (!nextNode) 
       return; // no node exists at that address
-
+    // 4. check if this node has already been visited. 
     if (history.some(function(o){
-      return o == nextNode;
+      return o === nextNode;
     })){
       return; // loop detected, terminate!
     }
   
-    if (nextNode.v == 0){ // found solution
-      history.push(nextNode);
+    // 5. check if this is the final node. 
+    if (nextNode.v == 0){ 
+      history.push(nextNode); // solution found! 
       _solutions.push(history);
     }
-
+    // attempt to move in every direction
     move(nextNode, 'up', history);
     move(nextNode, 'down', history);
     move(nextNode, 'right', history);
     move(nextNode, 'left', history);
-
-    
   }
 
   function getNextNode(node, direction){
@@ -188,10 +188,11 @@ function replay(history, i, lastCell){
 
     <script>
         document.getElementById('tableDiv').appendChild(createMazeHtml());
-    var first = _maze[0][0];
     
-    move(first, 'down', []);
-    move(first, 'right', []);
+    // get upper left corner and try going down and right
+    var startNode = _maze[0][0];
+    move(startNode, 'down', []);
+    move(startNode, 'right', []);
     
     writeOutput('solutions found: ' +  _solutions.length);
     _solutions.sort(function(a,b) {return a.length > b.length ? 1 : -1;});

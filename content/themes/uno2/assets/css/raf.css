@@ -22,3 +22,4 @@ img[alt=maze-graph-loop]
 
 /* prism ovrrides */
 pre[class*="language-"] {padding: 0 !important; border: none !important; border-radius: 0 !important;}
+span.comment { color: #339933 !important; text-shadow: none !important;}
