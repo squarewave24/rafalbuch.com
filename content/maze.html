@@ -61,10 +61,11 @@
 
 	for (var i=0; i<_maze.length; i++) // rows
 		for (var j=0; j<_maze[i].length; j++) // cols
-			_maze[i][j] = { x: j, 
-                            y: i, 
-                            v: _maze[i][j], 
-                            toString: function(){return '[' + this.x + ':' + this.y + '(' + this.v + ')]';}
+			// swap value integer with an objct that contains more information. 
+            _maze[i][j] = { x: j,             // store X position
+                            y: i,             // store Y position
+                            v: _maze[i][j],   // store # of steps
+                            toString: function(){return '[' + this.x + ':' + this.y + '(' + this.v + ')]';} // neater way to print this node
                            };
 	
 
@@ -182,8 +183,7 @@ function replay(history, i, lastCell){
 </script>
 
 <body>
-    <div id="tableDiv">
-    </div>
+    <div id="tableDiv"></div>
     <div id="outputTextDiv"></div>
 
     <script>
@@ -194,7 +194,7 @@ function replay(history, i, lastCell){
     move(startNode, 'down', []);
     move(startNode, 'right', []);
     
-    writeOutput('solutions found: ' +  _solutions.length);
+    writeOutput(_solutions.length + ' solutions found.');
     _solutions.sort(function(a,b) {return a.length > b.length ? 1 : -1;});
     _solutions.forEach(function(s, i){
         
