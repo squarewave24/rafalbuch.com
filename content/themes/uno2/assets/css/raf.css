@@ -13,11 +13,13 @@
     background: url(../images/coming-soon.jpg) top left no-repeatd;
 }
 
+.small-divider { margin-top: 8px; }
+
 img[alt=maze] {width: 300px;}
 img[alt=maze-graph], 
 img[alt=maze-graph-solution], 
 img[alt=maze-graph-loop]
- {width: 150px;}
+ {width: 200px;}
  img[alt=maze-array-objects] { width: 200px; }
 
 /* prism ovrrides */
