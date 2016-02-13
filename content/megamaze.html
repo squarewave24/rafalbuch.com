@@ -1,0 +1,257 @@
+<html>
+    <head>
+        
+<style>
+    table.maze-table {
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+    
+    table.maze-table td {
+        border: 1px solid #dfdfdf;
+        padding: 19px;
+    }
+    
+    .maze-table .alt { background-color: #EBFFF6; }
+    
+    #outputTextDiv {
+        font-size: .6em;
+        color: #666666;
+        font-family: arial;
+    }
+    
+    .selected {
+        background-color: #336666 !important;
+        color: #fff;
+        /* IE 8 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+        /* IE 5-7 */
+        filter: alpha(opacity=40);
+        /* Netscape */
+        -moz-opacity: 0.4;
+        /* Safari 1.x */
+        -khtml-opacity: 0.4;
+        /* Good browsers */
+        opacity: 0.4;
+    }
+    
+</style>
+
+
+<script src="scripts/Queue.js"></script>
+
+</head>
+<script>
+    var _maze = [
+        
+        // [12,12,10,8,11,10,5,12,12,10,8,11,10,5],
+        // [12,10,10,8,8,8,11,12,10,10,8,8,8,11],
+        // [12,12,11,12,12,8,11,12,12,11,12,12,8,11],
+        // [12,8,11,11,11,11,12,12,8,11,11,11,11,12],
+        // [8,8,8,11,12,11,8,8,8,8,11,12,11,8],
+        // [11,11,8,11,12,11,11,11,11,8,11,12,11,11],
+        // [3,11,11,11,8,8,0,3,11,11,11,8,8,3],
+        // [12,12,10,8,11,10,5,12,12,10,8,11,10,5],
+        // [12,10,10,8,8,8,11,12,10,10,8,8,8,11],
+        // [12,12,11,12,12,8,11,12,12,11,12,12,8,11],
+        // [12,8,11,11,11,11,12,12,8,11,11,11,11,12],
+        // [8,8,8,11,12,11,8,8,8,8,11,12,11,8],
+        // [11,11,8,11,12,11,11,11,11,8,11,12,11,11],
+        // [3,11,11,11,8,8,0,3,11,11,11,8,8,5],
+        // [12,12,10,8,11,10,5,12,12,10,8,11,10,0],
+        // [12,10,10,8,8,8,11,12,10,10,8,8,8,11],
+        // [12,12,11,12,12,8,11,12,12,11,12,12,8,11],
+        // [12,8,11,11,11,11,12,12,8,11,11,11,11,0],
+        // [8,8,8,11,12,11,8,8,8,8,11,12,11,8],
+        // [11,11,8,11,12,11,11,11,11,8,11,12,11,11],
+        // [3,11,11,11,8,8,0,3,11,11,11,8,8,0]
+        
+        [2,2,1],
+        [1,2,2],
+        [2,2,0]
+      ];
+    
+    var _solutions = [];
+
+	for (var i=0; i<_maze.length; i++) // rows
+		for (var j=0; j<_maze[i].length; j++) // cols
+			// swap value integer with an objct that contains more information. 
+            _maze[i][j] = { x: j,             // store X position
+                            y: i,             // store Y position
+                            v: _maze[i][j],   // store # of steps
+                            toString: function(){return '[' + this.x + ':' + this.y + '(' + this.v + ')]';} // neater way to print this node
+                           };
+	
+
+   function createMazeHtml(){
+    var html = '<table class=maze-table>'
+    for (var i=0; i<_maze.length; i++) { // rows
+      html += '<tr>'
+      for (var j=0; j<_maze[i].length; j++) { // cols
+        
+        var cellStyle = ((i+j) % 2) == 0 
+          ? '' 
+          : ' class="alt" ';
+        html += '<td ' +  cellStyle + '>' + _maze[i][j].v + '</td>'
+      }
+      html += '</tr>'
+    }
+    html += '</table>';
+    
+    var d = document.createElement('div');
+    d.innerHTML = html;
+    return d;
+  }
+
+  
+  
+  
+  function solve(root){
+      var q = new Queue();
+      q.enqueue(root);
+      var history = [root];
+      while (!q.isEmpty()){
+         var node = q.dequeue();
+         var an = getAvailableLinks(node); 
+         an.forEach(function(n){
+             history = history.splice(0);
+             history.push(n);
+              if (n.v === 0){
+                  console.log('solution found! ', n);
+                  while(!q.isEmpty())
+                    q.dequeue();
+                  _solutions.push(history);
+                  showResults();
+              }
+              else 
+                q.enqueue( n );
+          });
+      }
+  }
+  
+  
+  
+
+   function solveWithProgress(root) {
+       var q = new Queue();
+       q.enqueue(root);
+       while (!q.isEmpty()) {
+           console.log('while..');
+
+               var node = q.dequeue();
+               writeProgress();
+
+               getAvailableLinks(node).forEach(function (n) {
+                   if (n.v === 0)
+                       console.log('solution found! ', n);
+                   else
+                       q.enqueue(n);
+               });
+
+       }
+   }
+  
+  
+  
+  
+
+  function getAvailableLinks(node) {
+    var nodes = [];
+    
+    if (node.v < 1) return nodes;
+    // look down for available node
+    if (node.y - node.v > -1)
+       nodes.push( _maze[node.y - node.v][node.x] );
+    // look up for availabl node
+    if (node.y + node.v < _maze.length)
+       nodes.push( _maze[node.y + node.v][node.x] );
+    // look left for available node
+    if (node.x - node.v > -1)
+      nodes.push( _maze[node.y][node.x - node.v] );
+    // look right for availabl node
+    if (node.x + node.v < _maze.length)
+     nodes.push( _maze[node.y][node.x + node.v] );
+   
+   return nodes;
+ }
+ 
+
+// REPLAY functions ********************************************* //
+
+ function getCell(matrixObj){
+     return document.getElementById('tableDiv')
+        .children[0] // table div
+        .children[0] // table
+        .rows[ matrixObj.y] // row
+        .cells[matrixObj.x]; // return cell 
+ }
+
+ function getArrow(direction) {
+     return '&' + direction.substring(0,1) + 'arr;';
+ }
+
+function replay(history, i, lastCell){
+    if (!history) return;
+    i = i || 0;
+    var moves = getMoves(history);
+    var matrixObject = moves[i];
+    if (!matrixObject) return;
+    var c = getCell(matrixObject);
+    console.log('replay: ', matrixObject.toString());
+    if (lastCell) 
+        lastCell.className = lastCell.className.replace(/(?:^|\s)selected(?!\S)/,'');
+    c.className += ' selected';
+    setTimeout(function() {replay(history, i+1, c);}, 300);
+}
+
+
+</script>
+
+<body>
+    <div id="tableDiv"></div>
+    <div id="outputTextDiv"></div>
+
+    <script>
+        document.getElementById('tableDiv').appendChild(createMazeHtml());
+    
+    // get upper left corner and try going down and right
+
+
+    function writeProgress() {
+        setTimeout( function() { document.getElementById('outputTextDiv').innerHTML = document.getElementById('outputTextDiv').innerHTML + '.'; }, 100);
+    }
+
+    function showResults() {
+        
+        writeOutput(_solutions.length + ' solutions found.');
+        _solutions.sort(function(a,b) {return a.length > b.length ? 1 : -1;});
+        _solutions.forEach(function(s, i){
+            
+        writeOutput('<a href="#" onclick=replay(_solutions['+ i +'])>' +
+            getMoves(s).length + 
+            ' moves: </a>' +
+            s.map(function(el){ return ' ' + el.toString();})) 
+        }); 
+    }
+    
+    function writeOutput(text) {
+        var d = document.createElement('div');
+        d.innerHTML = text;
+        
+        document.getElementById('outputTextDiv').appendChild(d);
+    }
+    
+    function getMoves(history){
+        return history.filter(function(el){return typeof el.x != 'undefined';})
+    }
+    
+    function start() {
+        var startNode = _maze[0][0];
+        solve(startNode); 
+        
+    }
+    // setTimeout(start, 100);
+
+    </script></body>
+
+</html>
