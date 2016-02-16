@@ -77,7 +77,7 @@ function writeOutput(text) {
 // REPLAY functions ********************************************* //
 
 function getCell(matrixObj) {
-    return document.getElementById('tableDiv')
+    return document.getElementById('bigTableDiv')
         .children[0] // table div
         .children[0] // table
         .rows[matrixObj.y] // row
@@ -143,6 +143,33 @@ function solve(root) {
     }
 }
 
+function showResults(n) {
+    var steps = [n];
+    term = 100;
+    while (n && term > 0) {
+        n = n.parent;
+        if (n) steps.push(n);
+        term--;
+    }
+    _solutions = [steps.reverse()];
+
+    writeOutput(_solutions.length + ' solutions found.');
+    _solutions.sort(function(a, b) {
+        return a.length > b.length ? 1 : -1;
+    });
+    _solutions.forEach(function(s, i) {
+
+        writeOutput('<a href="#" onclick=replay(_solutions[' + i + '])>' +
+            getMoves(s).length +
+            ' moves: </a>' +
+            s.map(function(el) {
+                return ' ' + el.toString();
+            }))
+    });
+}
+function getMoves(history){
+    return history.filter(function(el){return typeof el.x != 'undefined';})
+}
 
 function getAvailableLinks(node) {
     var nodes = [];
