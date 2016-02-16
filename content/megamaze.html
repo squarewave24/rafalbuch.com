@@ -10,7 +10,9 @@
         
         table.maze-table td {
             border: 1px solid #dfdfdf;
-            padding: 19px;
+            padding: 4px;
+            text-align: center;
+            font-size: .8em;
         }
         
         .maze-table .alt {
@@ -46,40 +48,46 @@
 <script>
     var _maze = [
         
-        // [12,12,10,8,11,10,5,12,12,10,8,11,10,5],
-        // [12,10,10,8,8,8,11,12,10,10,8,8,8,11],
-        // [12,12,11,12,12,8,11,12,12,11,12,12,8,11],
-        // [12,8,11,11,11,11,12,12,8,11,11,11,11,12],
-        // [8,8,8,11,12,11,8,8,8,8,11,12,11,8],
-        // [11,11,8,11,12,11,11,11,11,8,11,12,11,11],
-        // [3,11,11,11,8,8,0,3,11,11,11,8,8,3],
-        // [12,12,10,8,11,10,5,12,12,10,8,11,10,5],
-        // [12,10,10,8,8,8,11,12,10,10,8,8,8,11],
-        // [12,12,11,12,12,8,11,12,12,11,12,12,8,11],
-        // [12,8,11,11,11,11,12,12,8,11,11,11,11,12],
-        // [8,8,8,11,12,11,8,8,8,8,11,12,11,8],
-        // [11,11,8,11,12,11,11,11,11,8,11,12,11,11],
-        // [3,11,11,11,8,8,0,3,11,11,11,8,8,5],
-        // [12,12,10,8,11,10,5,12,12,10,8,11,10,0],
-        // [12,10,10,8,8,8,11,12,10,10,8,8,8,11],
-        // [12,12,11,12,12,8,11,12,12,11,12,12,8,11],
-        // [12,8,11,11,11,11,12,12,8,11,11,11,11,0],
-        // [8,8,8,11,12,11,8,8,8,8,11,12,11,8],
-        // [11,11,8,11,12,11,11,11,11,8,11,12,11,11],
-        // [3,11,11,11,8,8,0,3,11,11,11,8,8,0]
+        [12,12,10,8,11,10,5,12,12,10,8,11,10,5,10,8,11,10,1],
+        [12,10,10,8,8,8,11,12,10,10,8,8,8,11,10,8,11,10,3],
+        [12,12,11,12,12,8,11,12,12,11,12,12,8,11,10,8,11,10,2],
+        [12,8,11,11,11,11,12,12,8,11,11,11,11,12,10,8,11,10,2],
+        [8,8,8,11,12,11,8,8,8,8,11,12,11,8,10,8,11,10,3],
+        [11,11,8,11,12,11,11,11,11,8,11,12,11,11,10,5,2,2,5],
+        [3,11,11,11,8,8,0,3,11,11,11,8,8,3,10,3,3,3,5],
+        [12,12,10,8,11,10,5,12,12,10,8,11,10,5,10,8,11,10,5],
+        [12,10,10,8,8,8,11,12,10,10,8,8,8,11,10,3,3,3,2],
+        [12,12,11,12,12,8,11,12,12,11,12,12,8,10,10,8,11,10,5],
+        [12,8,11,11,11,11,12,12,8,11,11,11,11,12,10,8,11,10,5],
+        [8,8,8,11,12,11,8,8,8,8,11,12,11,8,10,8,11,10,5],
+        [11,11,8,11,12,11,11,11,11,8,11,12,11,11,10,8,11,10,10],
+        [3,11,11,11,8,8,0,3,11,11,11,8,8,5,10,8,11,10,10],
+        [12,12,10,8,11,10,5,12,12,10,8,11,10,5,10,8,11,10,10],
+        [12,10,10,8,8,8,11,12,10,10,8,8,8,11,10,8,11,10,10],
+        [12,12,11,12,12,8,11,12,12,11,12,12,8,11,10,8,11,10,10],
+        [12,8,11,11,11,11,12,12,8,11,11,11,11,5,10,8,11,10,5],
+        [8,8,8,11,12,11,8,8,8,8,11,12,11,8,10,8,11,10,5],
+        [11,11,8,11,12,11,11,11,11,8,11,12,11,11,10,8,11,10,5],        
+        [12,12,10,8,11,10,5,12,12,10,8,11,10,5,10,8,11,10,10],
+        [12,10,10,8,8,8,11,12,10,10,8,8,8,11,10,8,11,10,10],
+        [12,12,11,12,12,8,11,12,12,11,12,12,8,11,10,8,11,10,10],
+        [12,8,11,11,11,11,12,12,8,11,11,11,11,5,10,8,11,10,5],
+        [8,8,8,11,12,11,8,8,8,8,11,12,11,8,10,8,11,10,5],
+        [11,11,8,11,12,11,11,11,11,8,11,12,11,11,10,8,11,10,5],
+        [3,10,11,11,8,8,0,3,11,11,11,8,8,5,10,8,11,10,0]
         
         // [2,2,1],
         // [1,2,2],
         // [2,2,0]
         
         
-        [6,3,2,4,6,2,5],
-        [3,5,2,4,4,4,1],
-        [3,3,2,3,3,4,2],
-        [3,4,1,2,2,5,3],
-        [4,4,4,2,3,2,4],
-        [2,5,4,2,3,2,5],
-        [3,5,2,1,4,4,0]
+        // [6,3,2,4,6,2,5],
+        // [3,5,2,4,4,4,1],
+        // [3,3,2,3,3,4,2],
+        // [3,4,1,2,2,5,3],
+        // [4,4,4,2,3,2,4],
+        // [2,5,4,2,3,2,5],
+        // [3,5,2,1,4,4,0]
       ];
     
     var _solutions = [];
@@ -114,31 +122,21 @@
     return d;
   }
 
-  
-  
-  
   function solve(root){
       var q = new Queue();
       q.enqueue(root);
       var visited = {};
       visited[root] = true;
-      
 
-      
       while (!q.isEmpty()){
          var node = q.dequeue();
-         
          getAvailableLinks(node).forEach(function(n){
              if (visited[n]) return;
              visited[n] = true;
-             n.parent = node;
-
-
-              if (n.v === 0){
-                  console.log('solution found! ', n);
+             n.parent = node; // save bread crumbs via linked list 
+              if (n.v === 0){ // solution found
                   while (!q.isEmpty())
                     q.dequeue();
-                //   _solutions.push(localHistory);
                   showResults(n);
                   return;
               }
@@ -149,74 +147,26 @@
   }
   
   
-    
-  function solveHistory(root){
-      var q = new Queue();
-      q.enqueue(root);
-      var history = [root];
-      
-      while (!q.isEmpty()){
-         var node = q.dequeue();
-         
-         getAvailableLinks(node).forEach(function(n){
-             if (history.some(function(o){ return o === n;  })){ return; }
-             localHistory = history.slice(0);
-             localHistory.push(n);
-              if (n.v === 0){
-                  console.log('solution found! ', n);
-                  while (!q.isEmpty())
-                    q.dequeue();
-                  _solutions.push(localHistory);
-                  showResults();
-                  return;
-              }
-              else 
-                q.enqueue( n );
-          });
-      }
-  }
-  
-  
-  
-
-   function solveWithProgress(root) {
-       var q = new Queue();
-       q.enqueue(root);
-       while (!q.isEmpty()) {
-           console.log('while..');
-
-               var node = q.dequeue();
-               writeProgress();
-
-               getAvailableLinks(node).forEach(function (n) {
-                   if (n.v === 0)
-                       console.log('solution found! ', n);
-                   else
-                       q.enqueue(n);
-               });
-
-       }
-   }
-  
-  
-  
-  
-
   function getAvailableLinks(node) {
     var nodes = [];
+    // this function assumes maze is an even rectangle 
     
     if (node.v < 1) return nodes;
-    // look down for available node
+    
+    // look up for available node
     if (node.y - node.v > -1)
        nodes.push( _maze[node.y - node.v][node.x] );
-    // look up for availabl node
-    if (node.y + node.v < _maze.length)
+    
+    // look down for availabl node
+    if (node.y + node.v < _maze.length) // checking y axis length
        nodes.push( _maze[node.y + node.v][node.x] );
+    
     // look left for available node
     if (node.x - node.v > -1)
       nodes.push( _maze[node.y][node.x - node.v] );
+    
     // look right for availabl node
-    if (node.x + node.v < _maze.length)
+    if (node.x + node.v < _maze[0].length) // checking x axis length
      nodes.push( _maze[node.y][node.x + node.v] );
    
    return nodes;
@@ -254,7 +204,7 @@ function replay(history, i, lastCell){
 </script>
 
 <body>
-    <div id="tableDiv"></div>
+    <div style="float:left" id="tableDiv"></div><button id="bigTableStartButton" style="float: left; margin: 5px;">Solve!</button>
     <div id="outputTextDiv"></div>
 
     <script>
@@ -274,7 +224,7 @@ function replay(history, i, lastCell){
             if (n) steps.push(n);
             term--;
         }
-        _solutions.push(steps.reverse());
+        _solutions = [steps.reverse()];
         
         writeOutput(_solutions.length + ' solutions found.');
         _solutions.sort(function(a,b) {return a.length > b.length ? 1 : -1;});
@@ -297,12 +247,12 @@ function replay(history, i, lastCell){
     function getMoves(history){
         return history.filter(function(el){return typeof el.x != 'undefined';})
     }
-    
     function start() {
         var startNode = _maze[0][0];
         solve(startNode); 
         
     }
+    document.getElementById('bigTableStartButton').addEventListener('click', start);
     // setTimeout(start, 100);
     </script>
 </body>

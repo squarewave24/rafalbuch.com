@@ -25,3 +25,24 @@ img[alt=maze-graph-loop]
 /* prism ovrrides */
 pre[class*="language-"] {padding: 0 !important; border: none !important; border-radius: 0 !important;}
 span.comment { color: #339933 !important; text-shadow: none !important;}
+
+
+table.maze-table { border-spacing: 0; border-collapse: collapse; }
+table.maze-table td { border: 1px solid #dfdfdf; padding: 19px; }
+#bigTableDiv table.maze-table td { padding: 8px; font-size: .8em;}
+.maze-table .alt { background-color: #EBFFF6; }
+.maze-table .selected {
+        background-color: #336666;
+        color: #fff;
+        /* IE 8 */
+        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+        /* IE 5-7 */
+        filter: alpha(opacity=40);
+        /* Netscape */
+        -moz-opacity: 0.4;
+        /* Safari 1.x */
+        -khtml-opacity: 0.4;
+        /* Good browsers */
+        opacity: 0.4;
+    }
+    

@@ -20,33 +20,6 @@ body {
   line-height: 1; }
 
 
-table.maze-table {
-        border-spacing: 0;
-        border-collapse: collapse;
-    }
-    
-    table.maze-table td {
-        border: 1px solid #dfdfdf;
-        padding: 19px;
-    }
-    
-    .maze-table .alt { background-color: #EBFFF6; }
-
-.maze-table .selected {
-        background-color: #336666;
-        color: #fff;
-        /* IE 8 */
-        -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-        /* IE 5-7 */
-        filter: alpha(opacity=40);
-        /* Netscape */
-        -moz-opacity: 0.4;
-        /* Safari 1.x */
-        -khtml-opacity: 0.4;
-        /* Good browsers */
-        opacity: 0.4;
-    }
-    
 .center100 { width: 100px; margin: auto;}    
 .center200 { width: 200px; margin: auto;}    
 .center300 { width: 300px; margin: auto;}    
