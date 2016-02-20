@@ -31,8 +31,8 @@ table.maze-table { border-spacing: 0; border-collapse: collapse; }
 table.maze-table td { border: 1px solid #dfdfdf; padding: 19px; }
 #bigTableDiv table.maze-table td { padding: 8px; font-size: .8em;}
 .maze-table .alt { background-color: #EBFFF6; }
-.maze-table .selected {
-        background-color: #336666;
+.maze-table .selected, .maze-table .selected-visited {
+        
         color: #fff;
         /* IE 8 */
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
@@ -45,4 +45,5 @@ table.maze-table td { border: 1px solid #dfdfdf; padding: 19px; }
         /* Good browsers */
         opacity: 0.4;
     }
-    
+.maze-table .selected { background-color: #336666 !important; }
+.maze-table .selected-visited {background-color: #669999;}

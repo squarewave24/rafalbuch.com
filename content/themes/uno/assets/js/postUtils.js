@@ -8,3 +8,4 @@ function loadJS(file) {
     // finally insert the element to the body element in order to load the script
     document.body.appendChild(jsElm);
 }
+

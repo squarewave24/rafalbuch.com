@@ -1,4 +1,4 @@
-if ($('#bigTableDiv').length){
+if (document.getElementById('tableDiv')){
        var _maze = [
         
         [6,3,2,4,6,2,5],

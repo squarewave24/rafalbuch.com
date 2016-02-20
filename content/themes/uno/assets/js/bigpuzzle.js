@@ -1,4 +1,4 @@
-if ($('#bigTableDiv').length) {
+if (document.getElementById('bigTableDiv')) {
     var _maze = [
 
         [12, 12, 10, 8, 11, 10, 5, 12, 12, 10, 8, 11, 10, 5, 10, 8, 11, 10, 1],
@@ -31,7 +31,7 @@ if ($('#bigTableDiv').length) {
     ]
     var _solutions = [];
 
-
+    // swap values for bjecs with x, y, v
     for (var i = 0; i < _maze.length; i++) // rows
         for (var j = 0; j < _maze[i].length; j++) // cols
         // swap value integer with an objct that contains more information. 
@@ -88,29 +88,10 @@ function getArrow(direction) {
     return '&' + direction.substring(0, 1) + 'arr;';
 }
 
-function replay(history, i, lastCell) {
-    if (!history) return;
-    i = i || 0;
-    var moves = getMoves(history);
-    var matrixObject = moves[i];
-    if (!matrixObject) return;
-    var c = getCell(matrixObject);
-    console.log('replay: ', matrixObject.toString());
-    if (lastCell)
-        lastCell.className = lastCell.className.replace(/(?:^|\s)selected(?!\S)/, '');
-    c.className += ' selected';
-    setTimeout(function() {
-        replay(history, i + 1, c);
-    }, 300);
-}
-
-if ($('#bigTableDiv').length) {
-
-    document.getElementById('bigTableDiv').appendChild(createMazeHtml());
+var tdiv = document.getElementById('bigTableDiv');
+if (tdiv) {
+    tdiv.appendChild(createMazeHtml());
     document.getElementById('bigTableStartButton').addEventListener('click', start);
-
-
-
 }
 
 function start() {
@@ -143,30 +124,7 @@ function solve(root) {
     }
 }
 
-function showResults(n) {
-    var steps = [n];
-    term = 100;
-    while (n && term > 0) {
-        n = n.parent;
-        if (n) steps.push(n);
-        term--;
-    }
-    _solutions = [steps.reverse()];
 
-    writeOutput(_solutions.length + ' solutions found.');
-    _solutions.sort(function(a, b) {
-        return a.length > b.length ? 1 : -1;
-    });
-    _solutions.forEach(function(s, i) {
-
-        writeOutput('<a href="#" onclick=replay(_solutions[' + i + '])>' +
-            getMoves(s).length +
-            ' moves: </a>' +
-            s.map(function(el) {
-                return ' ' + el.toString();
-            }))
-    });
-}
 function getMoves(history){
     return history.filter(function(el){return typeof el.x != 'undefined';})
 }
@@ -194,4 +152,48 @@ function getAvailableLinks(node) {
         nodes.push(_maze[node.y][node.x + node.v]);
 
     return nodes;
+}
+
+function showResults(n) {
+    var steps = [n];
+    term = 100;
+    while (n && term > 0) {
+        n = n.parent;
+        if (n) steps.push(n);
+        term--;
+    }
+    _solutions = [steps.reverse()];
+
+    writeOutput(_solutions.length + ' solutions found.');
+    _solutions.sort(function(a, b) {
+        return a.length > b.length ? 1 : -1;
+    });
+    _solutions.forEach(function(s, i) {
+
+        writeOutput('<a href="#solution" id="solutionLink" onclick=replay(_solutions[' + i + '])>' +
+            getMoves(s).length +
+            ' moves: </a>' +
+            s.map(function(el) {
+                return ' ' + el.toString();
+            }))
+        var sl = document.getElementById('solutionLink');
+        if (sl) sl.click();
+        
+    });
+}
+
+function replay(history, i, lastCell) {
+    if (!history) return;
+    i = i || 0;
+    var moves = getMoves(history);
+    var matrixObject = moves[i];
+    if (!matrixObject) return;
+    var c = getCell(matrixObject);
+    console.log('replay: ', matrixObject.toString());
+    if (lastCell)
+        lastCell.className = lastCell.className.replace(/(?:^|\s)selected(?!\S)/, ' selected-visited ');
+    c.className += ' selected';
+    setTimeout(function() {
+        replay(history, i + 1, c);
+    }, 300);
 }
