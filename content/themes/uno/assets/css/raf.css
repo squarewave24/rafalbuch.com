@@ -47,4 +47,4 @@ table.maze-table td { border: 1px solid #dfdfdf; padding: 19px; }
     }
 .maze-table .selected { background-color: #336666 !important; }
 .maze-table .selected-visited {background-color: #669999;}
-button#bigTableStartButton { padding: 10px;}
+button#bigTableStartButton { padding: 10px; margin-left: 10px; font-weight: bold;}

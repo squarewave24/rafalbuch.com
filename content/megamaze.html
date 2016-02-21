@@ -1,5 +1,4 @@
 <html>
-
 <head>
 
     <style>
@@ -48,33 +47,34 @@
 <script>
     var _maze = [
         
-        [12,12,10,8,11,10,5,12,12,10,8,11,10,5,10,8,11,10,1],
-        [12,10,10,8,8,8,11,12,10,10,8,8,8,11,10,8,11,10,3],
-        [12,12,11,12,12,8,11,12,12,11,12,12,8,11,10,8,11,10,2],
-        [12,8,11,11,11,11,12,12,8,11,11,11,11,12,10,8,11,10,2],
-        [8,8,8,11,12,11,8,8,8,8,11,12,11,8,10,8,11,10,3],
-        [11,11,8,11,12,11,11,11,11,8,11,12,11,11,10,5,2,2,5],
-        [3,11,11,11,8,8,0,3,11,11,11,8,8,3,10,3,3,3,5],
-        [12,12,10,8,11,10,5,12,12,10,8,11,10,5,10,8,11,10,5],
-        [12,10,10,8,8,8,11,12,10,10,8,8,8,11,10,3,3,3,2],
-        [12,12,11,12,12,8,11,12,12,11,12,12,8,10,10,8,11,10,5],
-        [12,8,11,11,11,11,12,12,8,11,11,11,11,12,10,8,11,10,5],
-        [8,8,8,11,12,11,8,8,8,8,11,12,11,8,10,8,11,10,5],
-        [11,11,8,11,12,11,11,11,11,8,11,12,11,11,10,8,11,10,10],
-        [3,11,11,11,8,8,0,3,11,11,11,8,8,5,10,8,11,10,10],
-        [12,12,10,8,11,10,5,12,12,10,8,11,10,5,10,8,11,10,10],
-        [12,10,10,8,8,8,11,12,10,10,8,8,8,11,10,8,11,10,10],
-        [12,12,11,12,12,8,11,12,12,11,12,12,8,11,10,8,11,10,10],
-        [12,8,11,11,11,11,12,12,8,11,11,11,11,5,10,8,11,10,5],
-        [8,8,8,11,12,11,8,8,8,8,11,12,11,8,10,8,11,10,5],
-        [11,11,8,11,12,11,11,11,11,8,11,12,11,11,10,8,11,10,5],        
-        [12,12,10,8,11,10,5,12,12,10,8,11,10,5,10,8,11,10,10],
-        [12,10,10,8,8,8,11,12,10,10,8,8,8,11,10,8,11,10,10],
-        [12,12,11,12,12,8,11,12,12,11,12,12,8,11,10,8,11,10,10],
-        [12,8,11,11,11,11,12,12,8,11,11,11,11,5,10,8,11,10,5],
-        [8,8,8,11,12,11,8,8,8,8,11,12,11,8,10,8,11,10,5],
-        [11,11,8,11,12,11,11,11,11,8,11,12,11,11,10,8,11,10,5],
-        [3,10,11,11,8,8,0,3,11,11,11,8,8,5,10,8,11,10,0]
+        
+        [12, 12, 10, 8 , 11, 10, 5 , 12, 12, 10, 8 , 11, 10, 5 , 10, 8 , 11, 10, 1],
+        [12, 10, 10, 8 , 8 , 8 , 11, 12, 10, 10, 8 , 8 , 8 , 11, 10, 8 , 11, 10, 3],
+        [12, 12, 11, 12, 12, 8 , 11, 12, 12, 11, 12, 12, 8 , 11, 10, 8 , 11, 10, 2],
+        [12, 8 , 11, 11, 11, 11, 12, 12, 8 , 11, 11, 11, 11, 12, 10, 8 , 11, 10, 2],
+        [8 , 8 , 8 , 11, 12, 11, 8 , 8 , 8 , 8 , 11, 12, 11, 8 , 10, 8 , 11, 10, 3],
+        [11, 11, 8 , 11, 12, 11, 11, 11, 11, 8 , 11, 12, 11, 11, 10, 5 , 2 , 2 , 5],
+        [3 , 11, 11, 11, 8 , 8 , 3 , 3 , 11, 11, 11, 8 , 8 , 3 , 10, 3 , 3 , 3 , 5],
+        [12, 12, 10, 8 , 11, 10, 5 , 12, 12, 10, 8 , 11, 10, 5 , 10, 8 , 11, 10, 5],
+        [12, 10, 10, 8 , 8 , 8 , 11, 12, 10, 10, 8 , 8 , 8 , 11, 10, 3 , 3 , 3 , 2],
+        [12, 12, 11, 12, 12, 8 , 11, 12, 12, 11, 12, 12, 8 , 10, 10, 8 , 11, 10, 5],
+        [12, 8 , 11, 11, 11, 11, 12, 12, 8 , 11, 11, 11, 11, 12, 10, 8 , 11, 10, 5],
+        [8 , 8 , 8 , 11, 12, 11, 8 , 8 , 8 , 8 , 11, 12, 11, 8 , 10, 8 , 11, 10, 5],
+        [11, 11, 8 , 11, 12, 11, 11, 11, 11, 8 , 11, 12, 11, 11, 10, 8 , 11, 10, 10],
+        [12 , 11, 11, 11, 8 , 8 , 3 , 3 , 11, 11, 11, 8 , 8 , 5 , 10, 8 , 11, 10, 10],
+        [12, 12, 10, 8 , 11, 10, 5 , 12, 12, 10, 8 , 5 , 10, 5 , 10, 8 , 5 , 10, 10],
+        [12, 10, 10, 8 , 8 , 8 , 11, 12, 10, 10, 8 , 8 , 8 , 5 , 10, 8 , 11, 10, 10],
+        [12, 12, 11, 12, 12, 8 , 11, 12, 12, 11, 12, 12, 7 , 5 , 10, 8 , 11, 10, 12],
+        [12, 8 , 11, 11, 11, 11, 12, 12, 8 , 11, 11, 11, 11, 5 , 10, 8 , 11, 10, 5],
+        [8 , 8 , 8 , 11, 12, 11, 8 , 8 , 8 , 8 , 11, 12, 11, 7 , 10, 7 , 11, 10, 5],
+        [11, 11, 8 , 11, 12, 11, 11, 11, 11, 8 , 11, 12, 11, 11, 10, 8 , 11, 10, 5],
+        [12, 12, 10, 8 , 11, 10, 5 , 12, 12, 10, 8 , 11, 10, 5 , 10, 8 , 11, 10, 10],
+        [12, 10, 10, 8 , 8 , 8 , 11, 12, 10, 10, 8 , 8 , 8 , 11, 10, 8 , 11, 10, 10],
+        [12, 12, 11, 12, 12, 8 , 11, 12, 12, 11, 12, 12, 8 , 11, 10, 8 , 11, 10, 10],
+        [12, 8 , 11, 11, 11, 11, 12, 12, 8 , 11, 11, 11, 11, 5 , 10, 8 , 11, 10, 5],
+        [8 , 8 , 8 , 11, 12, 11, 8 , 8 , 8 , 8 , 11, 12, 11, 8 , 10, 8 , 11, 10, 5],
+        [11, 11, 8 , 11, 12, 11, 11, 11, 11, 8 , 11, 12, 11, 11, 10, 8 , 11, 10, 5],
+        [3 , 10, 13, 12, 8 , 8 , 3 , 3 , 11, 11, 11, 8 , 8 , 5 , 10, 8 , 11, 10, 0]
         
         // [2,2,1],
         // [1,2,2],
@@ -123,29 +123,28 @@
   }
 
   function solve(root){
-      var q = new Queue();
-      q.enqueue(root);
-      var visited = {};
-      visited[root] = true;
+      var q = new Queue();  // using a Queue library 
+      q.enqueue(root);      // Queue is needed in order to ensure that nodes are navigated in order from lowest to higest
+      var visited = {};     // will use a hashtable to determine loops. 
+      visited[root] = true; // add root node to visited hash
 
-      while (!q.isEmpty()){
+      while (!q.isEmpty()){ // as long as there are nodes in the qeueue let's keep searching
          var node = q.dequeue();
-         getAvailableLinks(node).forEach(function(n){
-             if (visited[n]) return;
+         getAvailableLinks(node).forEach(function(n){ // find all possible edges from current node, and loop through them
+             if (visited[n]) return; // loop detected, terminate
              visited[n] = true;
              n.parent = node; // save bread crumbs via linked list 
-              if (n.v === 0){ // solution found
-                  while (!q.isEmpty())
-                    q.dequeue();
+              if (n.v === 0){ // solution found! 
+                  while (!q.isEmpty()) q.dequeue(); // empty the queue 
                   showResults(n);
                   return;
               }
-              else 
+              else // current node is not the solution, add to queue in order to process all edges from this node next! 
                 q.enqueue( n );
           });
       }
   }
-  
+
   
   function getAvailableLinks(node) {
     var nodes = [];
@@ -217,19 +216,16 @@ function replay(history, i, lastCell){
         setTimeout( function() { document.getElementById('outputTextDiv').innerHTML = document.getElementById('outputTextDiv').innerHTML + '.'; }, 100);
     }
 
+    // n = final node (bottom right of the grid). 
     function showResults(n) {
-        var steps = [n]; term = 100;
-        while (n && term > 0){
-            n = n.parent; 
-            if (n) steps.push(n);
-            term--;
+        var steps = [n];  // create an array starting with solution node
+        while (n){        // loop through nodes problm solution up to it's parent until we're in head vampire node
+            n = n.parent;  
+            if (n) steps.push(n); // add parent node to array
         }
-        _solutions = [steps.reverse()];
-        
-        writeOutput(_solutions.length + ' solutions found.');
-        _solutions.sort(function(a,b) {return a.length > b.length ? 1 : -1;});
+        _solutions = [steps.reverse()]; // reverse array to order them from start to finish
+        writeOutput(_solutions.length + ' solutions found. <b>click below to replay</b>');
         _solutions.forEach(function(s, i){
-            
         writeOutput('<a href="#" onclick=replay(_solutions['+ i +'])>' +
             getMoves(s).length + 
             ' moves: </a>' +
