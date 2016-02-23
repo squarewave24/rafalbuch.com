@@ -40,7 +40,7 @@ if (document.getElementById('bigTableDiv')) {
             y: i, // store Y position
             v: _maze[i][j], // store # of steps
             toString: function() {
-                return '[' + this.x + ':' + this.y + '(' + this.v + ')]';
+                return '[' + this.x + ':' + this.y +']';
             } // neater way to print this node
         };
 
@@ -174,10 +174,12 @@ function showResults(n, elapsed) {
 
         writeOutput('<a href="#solution" id="solutionLink" onclick=replay(_solutions[' + i + '])>' +
             getMoves(s).length +
-            ' moves: </a>' +
-            s.map(function(el) {
-                return ' ' + el.toString();
-            }))
+            ' moves</a>' 
+            // +
+            // s.map(function(el) {
+            //     return ' ' + el.toString();
+            // })
+            )
         var sl = document.getElementById('solutionLink');
         if (sl) sl.click();
         

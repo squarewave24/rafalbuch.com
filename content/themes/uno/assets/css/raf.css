@@ -28,7 +28,7 @@ span.comment { color: #339933 !important; text-shadow: none !important;}
 
 
 table.maze-table { border-spacing: 0; border-collapse: collapse; }
-table.maze-table td { border: 1px solid #dfdfdf; padding: 19px; }
+table.maze-table td { border: 1px solid #dfdfdf; padding: 19px; text-align: center;}
 #bigTableDiv table.maze-table td { padding: 8px; font-size: .8em;}
 .maze-table .alt { background-color: #EBFFF6; }
 .maze-table .selected, .maze-table .selected-visited {
@@ -48,3 +48,6 @@ table.maze-table td { border: 1px solid #dfdfdf; padding: 19px; }
 .maze-table .selected { background-color: #336666 !important; }
 .maze-table .selected-visited {background-color: #669999;}
 button#bigTableStartButton { padding: 10px; margin-left: 10px; font-weight: bold;}
+@media (max-width: 1000px) {
+  #bigTableDiv table.maze-table td { padding: 4px; font-size: .7em;}
+}
