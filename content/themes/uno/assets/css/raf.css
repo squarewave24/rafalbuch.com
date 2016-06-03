@@ -52,3 +52,4 @@ button#bigTableStartButton { padding: 10px; margin-left: 10px; font-weight: bold
   #bigTableDiv table.maze-table td { padding: 4px; font-size: .7em;}
 }
 
+code.inline-block {  border: none; padding: 5px;}
