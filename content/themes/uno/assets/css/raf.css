@@ -51,3 +51,4 @@ button#bigTableStartButton { padding: 10px; margin-left: 10px; font-weight: bold
 @media (max-width: 1000px) {
   #bigTableDiv table.maze-table td { padding: 4px; font-size: .7em;}
 }
+
