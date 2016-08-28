@@ -1,3 +1,4 @@
 config.js
 content/data/
 .DS_Store
+*.config
