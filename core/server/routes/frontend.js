@@ -3,6 +3,7 @@ var frontend    = require('../controllers/frontend'),
     errors      = require('../errors'),
     express     = require('express'),
     utils       = require('../utils'),
+     path = require('path'),
 
     frontendRoutes;
 
@@ -52,6 +53,25 @@ frontendRoutes = function frontendRoutes(middleware) {
     router.get(/^\/signup\/$/, function redirectToSignup(req, res) {
         redirect301(res, subdir + '/ghost/signup/');
     });
+
+
+    // adding bitcoin slideshow 
+    // router.use('/bitcoin', express.static(__dirname + '/bitcoin')); // serve index
+
+    router.get(/bitcoin\/$/, function(req,res) {
+        console.info("BITCOIN PATH!!!!!!");
+        res.sendFile(path.join(__dirname + '/../../../bitcoin/index.html')); 
+    })
+    router.get(/bitcoin.+/, function(req,res) { // serve any content under bitcoin 
+        var filePath = path.join(__dirname + '/../../..' + req.path);
+        console.info("BITCOIN PATH  sufiles   !!!!!!");
+        filePath = filePath.substr(0, filePath.length -1);
+        console.log('new file path! ', filePath)
+        res.sendFile(filePath);
+    })
+
+
+
 
     // redirect to /ghost and let that do the authentication to prevent redirects to /ghost//admin etc.
     router.get(/^\/((ghost-admin|admin|wp-admin|dashboard|signin|login)\/?)$/, function redirectToAdmin(req, res) {
