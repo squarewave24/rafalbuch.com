@@ -3,7 +3,7 @@ var frontend    = require('../controllers/frontend'),
     errors      = require('../errors'),
     express     = require('express'),
     utils       = require('../utils'),
-     path = require('path'),
+    path = require('path'),
 
     frontendRoutes;
 
