@@ -1,26 +1,37 @@
 <div class="slide-layout-title">
-		<div class="" style="float: left; width: 50%; left: 0; margin-left: 0;">
-			<img src="slides/blockchain3.png" style="width: 100%;"  />
-		</div>
-		<div style="float: left; text-align: right; width: 45%; padding-left: 20px;">
-	
-			<h1>Journey of a thousand hashes...</h1>
-			<h5>- by Rafal Buch</h5>
-		</div>
+	<div class="portrait-warning">
+			Best Viewed in Landscape mode
+		<br /><br /><br />
+	</div>	
+	<div class="" style="float: left; width: 55%; left: 0; margin-left: 0;">
+		<img src="slides/blockchain3.png" style="width: 100%;"  />
+	</div>
+	<div style="float: left; text-align: right; width: 35%; padding-left: 20px;">
 
-		<!-- <div style="float: left; width: 45%; padding-left: 40px;  ">
-			<ul>
-				<li>Blockchain</li>
-				<li>Bitcoin</li>
-				<li>Smart Contracts </li>
-				<li>Security </li>
-				<li>Interesting Problems</li>
-				<li>Interesting Solutions</li>
-			</ul>
-		</div> -->
+		<h1>Journey of a thousand hashes...</h1>
+		<h5>- by Rafal Buch</h5>
+	</div>
+
+	<!-- <div style="float: left; width: 45%; padding-left: 40px;  ">
+		<ul>
+			<li>Blockchain</li>
+			<li>Bitcoin</li>
+			<li>Smart Contracts </li>
+			<li>Security </li>
+			<li>Interesting Problems</li>
+			<li>Interesting Solutions</li>
+		</ul>
+	</div> -->
 </div>
-
 <hr/>
+<div class="toc">
+
+	<h1>Why Crypto</h1>
+	<h1>How Bitcoin Works</h1>
+	<h1>System Design</h1>
+	<h1>Beyond Bitcoin</h1>
+</div>
+<hr />
 									<!-- THE WHY -->
 <div class="section-heading">
 	<h1>the Why</h1>
@@ -222,13 +233,13 @@
 </div>
 <div class="vertical-slide-text">
 	<ul>
-		<li>Merkle Trees --> summarize all transactions</li>
+		<li>Merkle Trees summarize all transactions</li>
 		<li>Recursive hashing of pairs</li>
 		<li>Double SHA-256</li>
-		<li>2* log2( N) <p>
-
+		<li>2* log2( N)
+			<br /><br />
 			<img src="slides/bitcoinmerkle.png"/></li>	
-		</p>
+		
 	</ul>
 </div>
 <hr />
@@ -245,22 +256,46 @@
 <div>
 	<h1>Security</h1>
 	<ul>
-		<li>SSH access</li>
+		<li>SSH access (production)</li>
 		<ul>
 			<li>dedicated laptops
 				<ul>
-
-					<li>spear</li>
+					<li>2-Factor auth with Duo Unix</li>
+					<li>not used for anything else</li>
+					<li>regurally wiped</li>
 				</ul>
 			</li>
-			<li>Duo Unix - Two-Factor 
-				<br /><a class="sub-note" href="https://www.yubico.com/solutions/fido-u2f/">FIDO U2F</a>
+			<li>Heavily Audited
+				<ul>
+					<li>Bastion Hosts</li>
+					<li>Slack Notifications</li>
+					<li>Pager Duty</li>
+				</ul>
 			</li>
-			<li>heavy audit - bastion hosts, slack notifications, PagerDuty</li>
 		</ul>
 	</ul>
 </div>
 <hr/>
+
+div class="section-heading">
+		<h1>System Design</h1>
+	</div>
+	<hr/>
+
+
+<div>
+	<h1>Security</h1>
+	<ul>
+		<li>
+			Cold Storage (keys)
+			<ul>
+				<li>
+					USB drives
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
 	
 
 

@@ -29,6 +29,7 @@
 		.presentation-loading * {
 			visibility: hidden;
 		}
+		h5 {font-family: Arial, Helvetica, sans-serif; font-size: calc(100vw / 50)}
 		.slide h1 {
 			font-family: Helvetica
 		}
@@ -71,6 +72,10 @@
 		li {
 
 			font-size: calc(100vw / 40);
+			color: #ddd;
+		}
+		li ul {
+			margin-top: 20px !important;
 		}
 		div.vertical-slide-text img {
 			max-width: 44vw;
@@ -87,6 +92,25 @@
 		}
 		#slide-container {
 			margin-top: calc(1em + 4vh) !important; 
+		}
+		.portrait-warning {
+			display: none;
+		}
+		@media all and (orientation:portrait) {
+			.portrait-warning {
+				display: block;
+				font-family: Arial, Helvetica, sans-serif;
+				color: #dd3333;
+				font-size: calc(100vw/20);
+			}
+		}
+		.toc {
+			/* margin-top: calc(5vh) !important;  */
+			text-align: center;
+		}
+		.toc h1 {
+			padding-top: 5vh !important;
+			font-size: calc(100vw / 30)}
 		}
 	</style>
 
