@@ -57,6 +57,7 @@
 		div.vertical-slide {
 			float: left; left: 0; margin-left: 0;
 			height: 100vh;
+			margin-left: -8%;
 		}
 		div.vertical-slide img {
 			height: 90vh;
@@ -64,20 +65,29 @@
 			padding: 5px;
 		}
 		div.vertical-slide-text {
-			float: left; width: 45vw; padding-left: 40px;
+			float: left; width: 43vw; padding-left: 30px;
 			/* border:#666 1px solid; */
 		}
+		li {
+
+			font-size: calc(100vw / 40);
+		}
 		div.vertical-slide-text img {
-			max-width: 40vw;
+			max-width: 44vw;
 		}
 		.section-heading {
 			text-align: center; height: 100%; 
 		}
-
+		h1 {
+			font-size: calc(100vw / 15) !important;
+		}
 		.section-heading h1 {
-			font-size: 500% !important;
-			padding-top: 20% !important;
-			}
+			font-size: calc(100vw / 10) !important;
+			padding-top: calc(30vh) !important;
+		}
+		#slide-container {
+			margin-top: calc(1em + 4vh) !important; 
+		}
 	</style>
 
 	<script data-curl-run="app/run.js" src="bower_components/curl/src/curl.js"></script>
