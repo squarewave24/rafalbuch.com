@@ -30,14 +30,14 @@
 		.presentation-loading * {
 			visibility: hidden;
 		}
-		h5 {font-family: Arial, Helvetica, sans-serif; font-size: calc(100vw / 50)}
-		h4 {font-family: Arial, Helvetica, sans-serif; font-size: calc(100vw / 40)}
-		h3 {font-family: Arial, Helvetica, sans-serif; font-size: calc(100vw / 30)}
+		h5, h4, h3 {font-family: Arial, Helvetica, sans-serif; font-size: calc(100vw / 50)}
+		h4 {font-size: calc(100vw / 40)}
+		h3 {font-size: calc(100vw / 30)}
 		.slide h1 {
 			font-family: Helvetica
 		}
-		.slide li {
-			font-family:  Verdana, Helvetica, Arial
+		.slide li, table td, a {
+			font-family:  Arial, Helvetica, sans-serif
 		}
 		.sub-note {
 			color: #666;
@@ -81,14 +81,15 @@
 			margin-top: 29px !important;
 		}
 		ul li ul li {
-			list-style-type: lower-alpha;
+			/* list-style-type: lower-alpha; */
 			font-size: calc(100vw / 50);
 		}
 		ul li ul li ul li ul li {
 			list-style: none
 		}
-		ul li ul li {
-			list-style-type: lower-alpha;
+		ul li ul li ul li {
+			list-style: none;
+			/* list-style-type: lower-alpha; */
 			font-size: calc(100vw / 50);
 		}
 		
@@ -130,12 +131,13 @@
 		.section-references {
 
 		}
-		table td { padding-right: 25px; font-family: Arial, Helvetica, sans-serif;}
+		table td { padding-right: 25px;}
 		table  h2 {
 			font-size: calc(100vw / 25) !important;
 		}
-		.sub-note { color: #888;}
-		a {color: #79a0e0; font-family: Arial, Helvetica, sans-serif; text-decoration: none}
+		.sub-note, .sub-slide { color: #888;}
+		.sub-slide {font-family: helvetica; font-size: calc(100vw / 60) }
+		a {color: #79a0e0; text-decoration: none}
 		
 	</style>
 

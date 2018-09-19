@@ -8,7 +8,7 @@
 	</div>
 	<div style="float: left; text-align: right; width: 35%; padding-left: 20px;">
 
-		<h1>Journey of a thousand hashes...</h1>
+		<h1>Journey of a thousand hashes</h1>
 		<h5>- by Rafal Buch</h5>
 	</div>
 
@@ -99,6 +99,7 @@
 <div class="main-slide">
 	<img src="slides/web3.0.5.png" />
 </div>
+<div class="sub-slide">disrupt</div>
 <hr/>
 <h1>Web 3.0</h1>
 <div class="main-slide">
@@ -156,11 +157,17 @@
 <div class="main-slide">
 	<img src="slides/web3.1.6.png" />
 </div>
-<hr/>
+<hr />
 <h1>Web 3.0</h1>
 <div class="main-slide">
 	<img src="slides/web3.1.7.png" />
 </div>
+<hr/>
+<h1>Web 3.0</h1>
+<div class="main-slide">
+	<img src="slides/blockchain_tokens2.png" alt="">
+</div>
+
 <hr/>
 <h1>Web 3.0</h1>
 <div class="main-slide">
@@ -308,8 +315,6 @@
 			</li>
 		</ul>
 	</li>
-	<li>
-	</li>
 </ul>
 <hr />
 
@@ -324,7 +329,7 @@
 
 <h1>Design: Security</h1>
 <ul>
-	<li>SSH access (production)</li>
+	<li>restrict access (SSH)</li>
 	<ul>
 		<li>dedicated laptops
 			<ul>
@@ -339,16 +344,29 @@
 </ul>
 <hr/>
 
-<h1>Design: Security</h1>
+<h1>Design: Wallet Security</h1>
 <ul>
 	<li>
-		Cold Storage (air gap) for private keys <br />
-		<span class="sub-note">do not put on dropbox</span>
-
+		  Cold Wallets <span class="sub-note">do not put on dropbox</span>
 		<ul>
-			<li>USB drives</li>
-			<li>Hot Wallets</li>
+			<li>
+			    air gapped machines
+				<!-- Cold Storage (air gap) for private keys <br /> -->
+			</li>
+			<li>paper wallets</li>
+			<li>usb drives</li>
+			<li>split keys (redundancy + consensus)<br />
+				<span class="sub-note">n keys needed to restore secret. <a href="https://www.vaultproject.io/">Vault Project.</a></span>
+			</li>
 		</ul>
+		
+		
+		<li>Hot Wallets
+			<ul>
+				<li>Cloud / Exchange Wallet</li>
+				<li>Multi Signature Wallet <span class="sub-note">Shring just one private key with exchange?</span> </li>
+			</ul>
+		</li>
 	</li>
 </ul>	
 <hr>
