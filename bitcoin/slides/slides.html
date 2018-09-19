@@ -203,7 +203,7 @@
 	<ul>
 		<li>one way "trap door"</li>
 		<li>small key size</li>
-		<li>discrete log over elyptical curve</li>
+		<li>discrete log over elliptic curve </li>
 		<li>
 			<img src="slides/elipticcurve.png" style="width: 20vw" alt="">
 		</li>
@@ -346,6 +346,7 @@
 
 <h1>Design: Wallet Security</h1>
 <ul>
+	<li>Exchange API <span class="sub-note">order matching, latency, liquidity (more on this later)</span></li>
 	<li>
 		  Cold Wallets <span class="sub-note">do not put on dropbox</span>
 		<ul>
@@ -403,25 +404,49 @@
 		<ul>
 			<li>Stable Currencies (backed) vs non stable <br></li>
 			<li>Risk && Risk Profiles</li>
-			<li></li>
+			<li>Liquidity</li>
+			<li>Latency</li>
 		</ul>
 	</li>
 	<li>
-			<a href="https://medium.com/@tatianakoffman/your-official-guide-to-the-security-token-ecosystem-61a805673db7">Security Tokens</a>
+			<a href="https://medium.com/@tatianakoffman/your-official-guide-to-the-security-token-ecosystem-61a805673db7">Security Tokens</a> <span class="sub-note">vs Utility Tokens</span>
 	</li>
 </ul>
-
 <hr />
-<h1>Design: Exchange Interface</h1>
+
+<h1>Accounting / Reporting</h1>
 <ul>
-	<li>Exchange  support private wallets? i.e. <b>Bisq</b> <br><ul>
-	</ul>
-	<li>Custody</li>
-</li>
+	<li>Close Time? <span class="sub-note">settle books daily/weekly etc</span></li>
+	<li>FIFO / Lots <span class="sub-note"></span></li>
+	<li>P&L <span class="sub-note">real time? In memory transaction cache</span></li>
+	<li>Post Trade Confirmations?</li>
+	<li>Rec books & reporting</li>
 </ul>
-
-
 <hr>
+
+<h1>Design: Compliance / Risk</h1>
+<ul>
+	<li>Rules in Countries</li>
+	<li>Investor Assurance</li>
+	<li>Proper values assigned</li>
+	<li>Transaction Safeguards <span class="sub-note">i.e. transaction size, arbitration rules</span></li>
+</ul>
+<hr>
+<h1>Design: Research</h1>
+<ul>
+	<li>market events</li>
+    <li>correlation
+		<ul>
+			<li>Geopolitical <span class="sub-note">Inflation in Venezuela</span></li>
+			<li>Google Trends <span class="sub-note">Interest of X to currency Y</span></li>
+		</ul>
+	</li>
+	<li>Hedging <span class="sub-note">Crypt vs ETF or Fiat</span></li>
+    <li>crypto arbitrage</li>
+</ul>
+<hr>
+
+
 <!--
 												Beyond Blockchain
 -->
