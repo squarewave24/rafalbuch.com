@@ -195,8 +195,11 @@
 <div style="float: left; width: 45%; padding-left: 40px;">
 	<ul>
 		<li>one way "trap door"</li>
-		<li>discrete log over elyptical curve</li>
 		<li>small key size</li>
+		<li>discrete log over elyptical curve</li>
+		<li>
+			<img src="slides/elipticcurve.png" style="width: 20vw" alt="">
+		</li>
 	</ul>
 </div>
 <hr/>
@@ -239,9 +242,9 @@
 <hr/>
 
 
-<h1>What is Bitcoin</h1>
+<h1>What is Bitcoin...</h1>
 <div class="main-slide">
-	<img src="slides/bitcoin5.png" />
+	<img src="slides/bitcoin_blocks.png" />
 </div>
 <hr/>
 <h1>What is Bitcoin</h1>
@@ -278,8 +281,34 @@
 	<li>Outputs
 		<ul>
 			<li>Require signatures 1-n</li>
-			<li>to spend > owner signs with private key</li>
+			<li>to spend > owner signs with private key<br />
+				<ul>
+					<li>
+						<span class="sub-note">
+							The contents of the transaction (including the hash of the previous transaction) are hashed and signed with senders private key.
+						</span>
+
+					</li>
+					<li>
+						<span class="sub-note">senders public key is included in the transaction</span>
+					</li>
+					<li>
+						<span class="sub-note">
+							there is a small program inside each transaction that gets executed to decide if a transaction is valid
+						</span>
+						<ul>
+							<li>
+								<span class="sub-note">
+									Supports complex conditions such as Escrow, 2/3 signatures, Contracts
+								</span>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
 		</ul>
+	</li>
+	<li>
 	</li>
 </ul>
 <hr />
@@ -304,13 +333,8 @@
 				<li>regurally wiped</li>
 			</ul>
 		</li>
-		<li>Heavily Audited
-			<ul>
-				<li>Bastion Hosts</li>
-				<li>Slack Notifications</li>
-				<li>Pager Duty</li>
-			</ul>
-		</li>
+	<li>Consensus Deploys<br /><span class="sub-note">Anyone can propose a change => Consensus to apply</span></li>
+		
 	</ul>
 </ul>
 <hr/>
@@ -319,20 +343,29 @@
 <ul>
 	<li>
 		Cold Storage (air gap) for private keys <br />
-		<span class="sub-note">usb keys?</span>
 		<span class="sub-note">do not put on dropbox</span>
 
 		<ul>
-			<li>
-				USB drives
-			</li>
+			<li>USB drives</li>
+			<li>Hot Wallets</li>
 		</ul>
 	</li>
+</ul>	
+<hr>
+<h1>Design: Security</h1>
+<ul>
 	<li>Log Everything
 		<ul>
 			<li class="sub-note">All events through AWS Kinesis</li>
 		</ul>
 	</li>
+	<li>Heavily Audited
+			<ul>
+				<li>Bastion Hosts</li>
+				<li>Slack Notifications</li>
+				<li>Pager Duty</li>
+			</ul>
+		</li>
 	<li>Anomaly Detection
 		<ul>
 			<li class="sub-note">Warnings => Slack</li>
@@ -340,7 +373,6 @@
 			<li class="sub-note">Critical => Kill Switches</li>
 		</ul>
 	</li>
-	<li>Consensus Deploys<br /><span class="sub-note">Anyone can propose a change => Consensus to apply</span></li>
 </ul>
 <hr />	
 
@@ -364,16 +396,11 @@
 <hr />
 <h1>Design: Exchange Interface</h1>
 <ul>
-	<li>
-		some exchanges such as <b>Bisq</b> support private wallets. <br>
-		
-		
-		<ul>
-
-		</ul>
-	</li>
+	<li>Exchange  support private wallets? i.e. <b>Bisq</b> <br><ul>
+	</ul>
+	<li>Custody</li>
+</li>
 </ul>
-<li>Exchanges support outside wallets</li>
 
 
 <hr>
