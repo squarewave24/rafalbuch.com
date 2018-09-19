@@ -18,7 +18,7 @@
 <div class="toc">
 
 	<h1>Why Blockchain</h1>
-	<h1>How Blockchain / Bitcoin Works</h1>
+	<h1>How Bitcoin Works</h1>
 	<h1>System Design</h1>
 	<h1>Beyond Bitcoin</h1>
 </div>
@@ -28,7 +28,10 @@
 	<h1>the Why</h1>
 </div>
 <hr/>
+<div class="section-heading">
 
+	<h1>...</h1>
+</div>
 <hr />
 										<!-- WEB 1.0 -->
 <h1>Web 1.0</h1>
@@ -177,7 +180,7 @@
 												BITCOIN 
 -->
 <div class="section-heading">
-	<h1>how Bitcoin works</h1>
+	<h1>Bitcoin</h1>
 </div>
 <hr/>											
 <h1>What is Bitcoin</h1>
@@ -186,15 +189,18 @@
 </div>
 <hr/>
 <h1>What is Bitcoin</h1>
-<div class="main-slide">
-	<img src="slides/bitcoin1hashing.png" />
+<div class="main-slide" style="float: left; width: 50%">
+	<img src="slides/bitcoin1hashing.png" style="width: 100%" />
+</div>
+<div style="float: left; width: 45%; padding-left: 40px;">
+	<ul>
+		<li>one way "trap door"</li>
+		<li>discrete log over elyptical curve</li>
+		<li>small key size</li>
+	</ul>
 </div>
 <hr/>
-	<h1>What is Bitcoin</h1>
-	<div class="main-slide">
-		<img src="slides/bitcoin2.png" />
-	</div>
-<hr/>
+	
 <h1>What is Bitcoin</h1>
 <br />
 <table>
@@ -206,30 +212,32 @@
 		<td>
 			Addressing Space. <br />
 			<span class="sub-note">
-				That's 10<sup>77</sup>.&nbsp;&nbsp;&nbsp;There are 10<sup>80</sup> atoms in earth...
+				That's 10<sup>77</sup>.&nbsp;&nbsp;&nbsp;There are 10<sup>80</sup> atoms in visible universe...
 			</span>
 		</td>
 	</tr>
 	<tr>
 		<td>
-				
-				<h2>2<sup>160</sup></h2><br />
-			</td>
-			<td>
-				Private key space. <br />
-				<span class="sub-note">
-					That's 10<sup>48</sup>.&nbsp;&nbsp;&nbsp;There are 2<sup>96</sup>public keys per address...
-				</span>
-			</td>
-		</tr>
+			<h2>2<sup>160</sup></h2><br />
+		</td>
+		<td>
+			Private key space. <br />
+			<span class="sub-note">
+				That's 10<sup>48</sup>.&nbsp;&nbsp;&nbsp;There are 2<sup>96</sup>public keys per address...
+			</span>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<img src="slides/bitcionkeyaddress.png" style="width: 800px" alt=""><br />
+			<span class="sub-note">the Wallet Interchange Format key (WIF) is used to add a private key to your client wallet software. This is simply a Base58Check encoding of the private key into ASCII, which is easily reversed to obtain the 256-bit private key</span>
+		</td>
+	</tr>
+	
 </table>
 <hr/>
 
-<h1>What is Bitcoin</h1>
-<div class="main-slide">
-	<img src="slides/bitcoin3.png" />
-</div>
-<hr/>
 
 <h1>What is Bitcoin</h1>
 <div class="main-slide">
@@ -239,12 +247,6 @@
 <h1>What is Bitcoin</h1>
 <div class="main-slide">
 	<img src="slides/bitcoin5.5.png" />
-</div>
-<hr/>
-
-<h1>What is Bitcoin</h1>
-<div class="main-slide">
-	<img src="slides/bitcoin7.png" />
 </div>
 <hr/>
 
@@ -264,6 +266,24 @@
 </div>
 <hr />
 
+<h1>What is Bitcoin</h1>
+<div class="main-slide">
+	<img src="slides/blockchain_confirmations.png" />
+</div>
+<hr/>
+
+<h1>Bitcoin Transactions</h1>
+<ul>
+	<li>Inputs&nbsp;&nbsp;<span class="sub-note">UTXO</span></li>
+	<li>Outputs
+		<ul>
+			<li>Require signatures 1-n</li>
+			<li>to spend > owner signs with private key</li>
+		</ul>
+	</li>
+</ul>
+<hr />
+
 <!-- 								
 												SYSTEM DESIGN 
 -->
@@ -273,49 +293,95 @@
 <hr/>
 
 
-<div>
-	<h1>Security</h1>
+<h1>Design: Security</h1>
+<ul>
+	<li>SSH access (production)</li>
 	<ul>
-		<li>SSH access (production)</li>
-		<ul>
-			<li>dedicated laptops
-				<ul>
-					<li>2-Factor auth with Duo Unix</li>
-					<li>not used for anything else</li>
-					<li>regurally wiped</li>
-				</ul>
-			</li>
-			<li>Heavily Audited
-				<ul>
-					<li>Bastion Hosts</li>
-					<li>Slack Notifications</li>
-					<li>Pager Duty</li>
-				</ul>
-			</li>
-		</ul>
-	</ul>
-</div>
-<hr/>
-
-<div>
-	<h1>Security</h1>
-	<ul>
-		<li>
-			Cold Storage (keys)
+		<li>dedicated laptops
 			<ul>
-				<li>
-					USB drives
-				</li>
+				<li>2-Factor auth with Duo Unix</li>
+				<li>not used for anything else</li>
+				<li>regurally wiped</li>
+			</ul>
+		</li>
+		<li>Heavily Audited
+			<ul>
+				<li>Bastion Hosts</li>
+				<li>Slack Notifications</li>
+				<li>Pager Duty</li>
 			</ul>
 		</li>
 	</ul>
-</div>
+</ul>
+<hr/>
+
+<h1>Design: Security</h1>
+<ul>
+	<li>
+		Cold Storage (air gap) for private keys <br />
+		<span class="sub-note">usb keys?</span>
+		<span class="sub-note">do not put on dropbox</span>
+
+		<ul>
+			<li>
+				USB drives
+			</li>
+		</ul>
+	</li>
+	<li>Log Everything
+		<ul>
+			<li class="sub-note">All events through AWS Kinesis</li>
+		</ul>
+	</li>
+	<li>Anomaly Detection
+		<ul>
+			<li class="sub-note">Warnings => Slack</li>
+			<li class="sub-note">Errors => Pager Duty</li>
+			<li class="sub-note">Critical => Kill Switches</li>
+		</ul>
+	</li>
+	<li>Consensus Deploys<br /><span class="sub-note">Anyone can propose a change => Consensus to apply</span></li>
+</ul>
 <hr />	
 
+<h1>Design: Security Master</h1>
+<ul>
+	<li>
+		Wallet Addresses & Accounts Map<br /><span class="sub-note">Link entities on blockchain</span>
+	</li>
+	<li>Attribution
+		<ul>
+			<li>Stable Currencies (backed) vs non stable <br></li>
+			<li>Risk && Risk Profiles</li>
+			<li></li>
+		</ul>
+	</li>
+	<li>
+			<a href="https://medium.com/@tatianakoffman/your-official-guide-to-the-security-token-ecosystem-61a805673db7">Security Tokens</a>
+	</li>
+</ul>
 
+<hr />
+<h1>Design: Exchange Interface</h1>
+<ul>
+	<li>
+		some exchanges such as <b>Bisq</b> support private wallets. <br>
+		
+		
+		<ul>
+
+		</ul>
+	</li>
+</ul>
+<li>Exchanges support outside wallets</li>
+
+
+<hr>
 <!--
 												Beyond Blockchain
 -->
+
+
 <div class="section-heading">
 	<h1>Beyond Blockchain</h1>
 </div>
@@ -384,7 +450,18 @@
 									REFERENCES 
 -->
 <div class="section-references">
-		<h1>Refernces</h1>
-		<h4>Mastering Bitcoin</h4>
+		<iframe style="width: 40vw; height: 35vh" src="https://www.youtube.com/embed/n5z2_fggZlI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+	<h1>Refernces</h1>
+	<br>
+	<h3>
+		slides: rafalbuch.com/bitcoin	
+	</h3>	
+	<br>
+		<h4><a href="https://www.amazon.com/Mastering-Bitcoin-Unlocking-Digital-Cryptocurrencies/dp/1449374042">Mastering Bitcoin</a></h4>
+		<h4><a href="https://medium.freecodecamp.org/how-bitcoin-mining-really-works-38563ec38c87">How Bitcoin Mining Really Works</a></h4>
+		<h4>Pluralsight<br>
+			<span class="sub-note">Introduction to Bitcoin and decentralized technology</span>
+		</h4>
+		<h4><a href="http://www.righto.com/2014/02/bitcoins-hard-way-using-raw-bitcoin.html">Bitcoins the hard way: Using the raw Bitcoin protocol</a></h4>
 	</div>
 <hr/>
